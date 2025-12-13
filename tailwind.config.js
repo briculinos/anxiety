@@ -7,18 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Warm calming palette
+        // Cloud Dancer inspired palette (Pantone 2026 - soft white)
         warm: {
-          50: '#FFF8F0',   // Cream background
-          100: '#FEF3E2',  // Soft peach (cards)
-          200: '#FDE7C7',  // Light peach
-          300: '#F2CC8F',  // Soft gold (highlight)
-          400: '#E9B97A',  // Warm gold
-          500: '#E07A5F',  // Warm coral (primary)
-          600: '#C96A52',  // Darker coral
-          700: '#81B29A',  // Sage green (secondary)
-          800: '#6B9A85',  // Darker sage
-          900: '#3D405B',  // Warm dark blue-gray (text)
+          50: '#FAFAF8',   // Cloud white background (almost white)
+          100: '#F5F5F3',  // Soft gray-white (cards)
+          200: '#ECEAE6',  // Light warm gray
+          300: '#E0DDD8',  // Warm gray (borders)
+          400: '#C9C5BE',  // Medium warm gray
+          500: '#8B9A8B',  // Sage green (primary - calming)
+          600: '#7A8A7A',  // Darker sage
+          700: '#6B8F71',  // Forest green (success)
+          800: '#5A7A5F',  // Darker green
+          900: '#4A5568',  // Soft dark gray (text)
         },
         calm: {
           50: '#f0f9ff',
