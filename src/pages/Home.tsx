@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Wind, Hand, Brain, Clock, Dumbbell, ChevronRight, AlertCircle } from 'lucide-react'
+import { Wind, Hand, Brain, Clock, Dumbbell, ChevronRight, ChevronLeft, AlertCircle, X } from 'lucide-react'
 import { Button, Card, IntensitySlider, Chip } from '../components/common'
 import { BoxBreathing, PacedBreathing, PhysiologicalSigh } from '../components/breathing'
 import { FiveFourThreeGrounding } from '../components/grounding'
@@ -69,6 +69,26 @@ export function Home() {
       setFlowStep('symptoms')
     }
     setIsTriaging(false)
+  }
+
+  // Handle going back
+  const handleBack = () => {
+    if (flowStep === 'intensity') {
+      setFlowStep('home')
+      setFlowState('idle')
+    } else if (flowStep === 'symptoms') {
+      setFlowStep('intensity')
+    } else if (flowStep === 'tools') {
+      setFlowStep('symptoms')
+    }
+  }
+
+  // Handle cancel (go back to home)
+  const handleCancel = () => {
+    endEpisode()
+    setFlowStep('home')
+    setFlowState('idle')
+    setIntensity(5)
   }
 
   // Handle symptom step completion
@@ -201,9 +221,18 @@ export function Home() {
             exit={{ opacity: 0, x: -50 }}
             className="py-8"
           >
-            <div className="mb-8">
-              <h1 className="text-2xl font-bold text-white mb-2">Let's check in</h1>
-              <p className="text-slate-400">Take a breath. You're here, and that's a good step.</p>
+            {/* Header with back button */}
+            <div className="flex items-center gap-3 mb-6">
+              <button
+                onClick={handleCancel}
+                className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              <div>
+                <h1 className="text-2xl font-bold text-white">Let's check in</h1>
+                <p className="text-slate-400 text-sm">Take a breath. You're here, and that's a good step.</p>
+              </div>
             </div>
 
             <IntensitySlider value={intensity} onChange={setIntensity} />
@@ -249,9 +278,18 @@ export function Home() {
             exit={{ opacity: 0, x: -50 }}
             className="py-8"
           >
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold text-white mb-2">What are you noticing?</h1>
-              <p className="text-slate-400 text-sm">Tap any that apply (optional)</p>
+            {/* Header with back button */}
+            <div className="flex items-center gap-3 mb-6">
+              <button
+                onClick={handleBack}
+                className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <div>
+                <h1 className="text-2xl font-bold text-white">What are you noticing?</h1>
+                <p className="text-slate-400 text-sm">Tap any that apply (optional)</p>
+              </div>
             </div>
 
             <div className="space-y-6">
@@ -317,13 +355,22 @@ export function Home() {
             exit={{ opacity: 0, x: -50 }}
             className="py-8"
           >
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold text-white mb-2">Choose a tool</h1>
-              <p className="text-slate-400 text-sm">
-                {intensity >= 7
-                  ? 'Let\'s calm your body first. Try breathing or grounding.'
-                  : 'Pick what feels right for you.'}
-              </p>
+            {/* Header with back button */}
+            <div className="flex items-center gap-3 mb-6">
+              <button
+                onClick={handleBack}
+                className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <div>
+                <h1 className="text-2xl font-bold text-white">Choose a tool</h1>
+                <p className="text-slate-400 text-sm">
+                  {intensity >= 7
+                    ? 'Let\'s calm your body first. Try breathing or grounding.'
+                    : 'Pick what feels right for you.'}
+                </p>
+              </div>
             </div>
 
             <div className="space-y-3">
