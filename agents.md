@@ -4,6 +4,10 @@
 
 **Calm Companion** is a mobile-first PWA for anxiety management. It provides guided coping exercises, AI-powered support, and personal tracking - all with privacy-first local storage.
 
+**Live URL**: https://anxiety-away.vercel.app
+
+**GitHub**: https://github.com/briculinos/anxiety
+
 **Target Users**: People experiencing anxiety (initially your wife and brother-in-law)
 
 **Core Philosophy**:
@@ -23,93 +27,137 @@
 | State | Zustand |
 | Database | Dexie.js (IndexedDB wrapper) |
 | AI | Google Gemini API |
+| Backend | Vercel Serverless Functions |
 | Animations | Framer Motion |
 | PWA | vite-plugin-pwa |
+| Hosting | Vercel (auto-deploy from GitHub) |
 
 ---
 
-## AI Agents Architecture
+## Architecture
 
-The app uses a **multi-agent system** with specialized roles. Agents are in `src/agents/`.
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     FRONTEND (React PWA)                     │
+│  - All UI/UX components                                      │
+│  - Coping exercises (breathing, grounding, etc.)             │
+│  - Local storage (IndexedDB via Dexie)                       │
+│  - Calls /api/* endpoints                                    │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                 BACKEND (Vercel Serverless)                  │
+│  /api/triage.ts   - Classify anxiety severity                │
+│  /api/reframe.ts  - Generate CBT reframes                    │
+│  /api/insights.ts - Generate weekly insights                 │
+│                                                              │
+│  Environment Variable: GEMINI_API_KEY (secure)               │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Google Gemini API                         │
+│  Model: gemini-1.5-flash                                     │
+└─────────────────────────────────────────────────────────────┘
+```
 
-### 1. Triage Agent (`src/agents/gemini.ts` → `triageUser`)
+---
 
-**Purpose**: Classify user state and route to appropriate intervention.
+## Backend API Endpoints
 
-**Input**:
-- Intensity (0-10)
-- Symptoms array
-- Triggers array
-- Optional user message
+Located in `/api/` folder. These are Vercel serverless functions.
 
-**Output**:
-```typescript
+### POST /api/triage
+
+Classifies user anxiety state and suggests intervention.
+
+**Request:**
+```json
 {
-  severity: 'mild' | 'moderate' | 'severe' | 'crisis',
-  suggestedFlow: string,
-  isCrisis: boolean,
-  isMedicalConcern: boolean,
-  reasoning?: string
+  "intensity": 7,
+  "symptoms": ["Racing heart", "Tight chest"],
+  "triggers": ["Work"],
+  "userMessage": "optional text"
 }
 ```
 
-**Safety First**: Before calling Gemini, it runs local keyword detection for crisis terms. This is faster and more reliable than LLM for safety-critical detection.
-
-**Fallback**: If Gemini fails, uses rule-based assessment based on intensity.
-
----
-
-### 2. Insight Agent (`src/agents/gemini.ts` → `generateWeeklyInsight`)
-
-**Purpose**: Generate personalized weekly insights from episode data.
-
-**Input**:
-- Episode array (last 7 days)
-- Top triggers with counts
-- Top tools with helpfulness ratings
-
-**Output**:
-```typescript
+**Response:**
+```json
 {
-  insight: string,   // Encouraging observation about patterns
-  experiment: string // One tiny, specific thing to try
+  "severity": "severe",
+  "suggestedFlow": "stabilize",
+  "isCrisis": false,
+  "isMedicalConcern": false,
+  "reasoning": "High intensity with physical symptoms"
 }
 ```
 
-**Guidelines**:
-- Warm, non-judgmental tone
-- Focus on what's working
-- Experiments must be small and actionable
-- Never diagnose
+### POST /api/reframe
 
----
+Generates CBT-style thought reframe.
 
-### 3. Reframe Agent (`src/agents/gemini.ts` → `generateReframe`)
-
-**Purpose**: Help users reframe anxious thoughts (gentle CBT).
-
-**Input**:
-- Situation description
-- Automatic thought
-- Emotion felt
-
-**Output**:
-```typescript
+**Request:**
+```json
 {
-  validation: string,     // Validates their feeling first
-  balancedThought: string // More balanced alternative
+  "situation": "Presentation tomorrow",
+  "automaticThought": "I'll fail and everyone will judge me",
+  "emotion": "Anxious"
 }
 ```
 
-**Key Principle**: Never says thoughts are "wrong" - offers gentler perspective.
+**Response:**
+```json
+{
+  "validation": "It makes sense to feel anxious about presentations.",
+  "balancedThought": "You've prepared well, and even if it's not perfect, one presentation doesn't define you."
+}
+```
+
+### POST /api/insights
+
+Generates weekly insights from episode data.
+
+**Request:**
+```json
+{
+  "episodeCount": 5,
+  "avgIntensity": "6.2",
+  "topTriggers": [{"trigger": "Work", "count": 3}],
+  "topTools": [{"tool": "Box breathing", "count": 4, "avgHelpfulness": 4.2}]
+}
+```
+
+**Response:**
+```json
+{
+  "insight": "Box breathing seems to be your go-to tool, and it's working well for you.",
+  "experiment": "Try using it before stressful meetings, not just during anxiety."
+}
+```
 
 ---
 
-### 4. Next Step Suggester (`src/agents/gemini.ts` → `suggestNextStep`)
+## AI Agents (Frontend)
 
-**Purpose**: Suggest what to do after using coping tools.
+Located in `src/agents/gemini.ts`. These call the backend API.
 
-**Note**: This is rule-based (no API call) for speed and reliability.
+### triageUser()
+- Checks for crisis keywords locally first (faster, safer)
+- Calls `/api/triage` for AI assessment
+- Falls back to rule-based if API fails
+
+### generateReframe()
+- Calls `/api/reframe`
+- Falls back to generic CBT prompts if API fails
+
+### generateWeeklyInsight()
+- Calls `/api/insights`
+- Falls back to simple stats summary if API fails
+
+### suggestNextStep()
+- Rule-based only (no API call)
+- Fast suggestions based on current state
 
 ---
 
@@ -117,29 +165,16 @@ The app uses a **multi-agent system** with specialized roles. Agents are in `src
 
 Located in `src/utils/safety.ts`.
 
-### Crisis Detection
+### Crisis Detection (Local - No API)
 
-**Keywords that trigger crisis screen**:
+**Keywords that trigger crisis screen:**
 - suicide, suicidal, kill myself, end my life
 - self-harm, hurt myself, cutting
 - can't go on, hopeless, no reason to live
 
-**Medical concern keywords**:
+**Medical concern keywords:**
 - chest pain, heart attack, can't breathe
 - passing out, fainting, severe pain
-
-### Safety Events Logging
-
-Minimal data stored for safety events:
-```typescript
-{
-  id: string,
-  timestamp: Date,
-  type: 'crisis_detected' | 'medical_warning' | 'crisis_screen_shown',
-  actionTaken: string
-  // No raw text stored for privacy
-}
-```
 
 ### Crisis Screen (`src/components/CrisisScreen.tsx`)
 
@@ -151,26 +186,35 @@ Shows:
 
 ---
 
-## Features & Components
-
-### Home Page Flow (`src/pages/Home.tsx`)
+## Navigation Flow
 
 ```
-[Home] → [Intensity] → [Symptoms] → [Tools] → [Complete]
-           ↓
-      (if crisis detected)
-           ↓
-    [Crisis Screen]
+[Home] ←──────────────────────────────────────┐
+   │                                          │
+   ▼                                          │
+[Intensity] ──X (cancel)──────────────────────┤
+   │                                          │
+   ▼                                          │
+[Symptoms] ──← (back to intensity)            │
+   │                                          │
+   ▼                                          │
+[Tools] ──← (back to symptoms)                │
+   │                                          │
+   ▼                                          │
+[Exercise] ──X (cancel, back to tools)        │
+   │                                          │
+   ▼                                          │
+[Complete] ───(auto-redirect after 3s)────────┘
 ```
 
-**State Machine** (managed by `flowStep` state):
-1. `home` - Shows panic button
-2. `intensity` - Slider 0-10
-3. `symptoms` - Optional symptom/trigger selection
-4. `tools` - List of coping tools
-5. `complete` - Success message
+**Navigation buttons:**
+- X button: Cancel flow, return to home
+- ← button: Go back one step
+- All exercises have X button to cancel
 
 ---
+
+## Features & Components
 
 ### Coping Exercises
 
@@ -184,16 +228,6 @@ Shows:
 | Worry Postponement | `src/components/exercises/WorryPostponement.tsx` | - | Save worry for later |
 | Thought Helper | `src/components/exercises/ThoughtHelper.tsx` | - | CBT reframing |
 
-**Common Props**:
-```typescript
-interface ExerciseProps {
-  onComplete: () => void  // Called when exercise finishes
-  onCancel: () => void    // Called when user exits early
-}
-```
-
----
-
 ### Pages
 
 | Page | File | Purpose |
@@ -205,221 +239,124 @@ interface ExerciseProps {
 
 ---
 
-### Data Models (`src/types/index.ts`)
-
-**Episode** - Records each anxiety event:
-```typescript
-interface Episode {
-  id: string
-  timestamp: Date
-  intensity: number        // 0-10
-  durationMinutes?: number
-  triggers: string[]
-  symptoms: string[]
-  toolsUsed: string[]
-  helpfulRating?: number   // 1-5
-  notes?: string
-}
-```
-
-**ToolboxItem** - Personal coping tools:
-```typescript
-interface ToolboxItem {
-  id: string
-  type: 'mantra' | 'memory' | 'playlist' | 'technique'
-  title: string
-  content: string
-  url?: string
-  isFavorite: boolean
-  usageCount: number
-}
-```
-
-**ThoughtRecord** - CBT journal entries:
-```typescript
-interface ThoughtRecord {
-  id: string
-  timestamp: Date
-  situation: string
-  automaticThought: string
-  emotion: string
-  emotionIntensity: number
-  balancedThought?: string
-}
-```
-
----
-
-## Database (`src/db/index.ts`)
-
-Uses **Dexie.js** for IndexedDB access.
-
-**Tables**:
-- `episodes` - Anxiety episode logs
-- `userProfile` - Preferences
-- `safetyEvents` - Crisis event logs (minimal)
-- `postponedWorries` - Scheduled worries
-- `toolboxItems` - Personal tools
-- `thoughtRecords` - CBT journal
-- `weeklyInsights` - Generated insights
-
-**Key Functions**:
-```typescript
-logEpisode(episode)           // Save new episode
-getRecentEpisodes(days)       // Get episodes from last N days
-getWeeklyStats()              // Aggregate stats for Progress page
-addPostponedWorry(worry, scheduledFor)
-saveThoughtRecord(record)
-```
-
----
-
-## State Management (`src/stores/appStore.ts`)
-
-Global state via **Zustand**:
-
-```typescript
-interface AppState {
-  flowState: FlowState           // Current flow step
-  currentSeverity: Severity      // From triage
-  currentEpisode: CurrentEpisode // Active episode being tracked
-  activeBreathing: BreathingType // Which breathing exercise
-  showCrisisScreen: boolean      // Crisis modal visible
-  activeTab: 'home' | 'toolbox' | 'reflect' | 'progress'
-  hapticEnabled: boolean
-  soundEnabled: boolean
-}
-```
-
-**Helper Hook**:
-```typescript
-const haptic = useHaptic()
-haptic.light()   // 10ms vibration
-haptic.medium()  // 25ms vibration
-haptic.heavy()   // 50ms vibration
-```
-
----
-
 ## File Structure
 
 ```
-src/
-├── agents/
-│   └── gemini.ts          # All Gemini API interactions
-├── components/
-│   ├── common/            # Button, Card, Chip, IntensitySlider, Navigation
-│   ├── breathing/         # BoxBreathing, PacedBreathing, PhysiologicalSigh
-│   ├── grounding/         # FiveFourThreeGrounding
-│   ├── exercises/         # MuscleRelaxation, WorryPostponement, ThoughtHelper
-│   └── CrisisScreen.tsx
-├── db/
-│   └── index.ts           # Dexie database + helper functions
-├── pages/
-│   ├── Home.tsx
-│   ├── Toolbox.tsx
-│   ├── Reflect.tsx
-│   └── Progress.tsx
-├── stores/
-│   └── appStore.ts        # Zustand global state
-├── types/
-│   └── index.ts           # TypeScript interfaces
-├── utils/
-│   └── safety.ts          # Crisis detection, emergency resources
-├── App.tsx
-├── main.tsx
-└── index.css              # Tailwind + custom styles
+anxiety/
+├── api/                       # Vercel serverless functions
+│   ├── triage.ts              # Severity classification
+│   ├── reframe.ts             # CBT thought reframing
+│   └── insights.ts            # Weekly insights generation
+├── src/
+│   ├── agents/
+│   │   └── gemini.ts          # Frontend API calls
+│   ├── components/
+│   │   ├── common/            # Button, Card, Chip, etc.
+│   │   ├── breathing/         # Breathing exercises
+│   │   ├── grounding/         # Grounding exercises
+│   │   ├── exercises/         # Other exercises
+│   │   └── CrisisScreen.tsx
+│   ├── db/
+│   │   └── index.ts           # Dexie database
+│   ├── pages/
+│   │   ├── Home.tsx
+│   │   ├── Toolbox.tsx
+│   │   ├── Reflect.tsx
+│   │   └── Progress.tsx
+│   ├── stores/
+│   │   └── appStore.ts        # Zustand state
+│   ├── types/
+│   │   └── index.ts           # TypeScript interfaces
+│   ├── utils/
+│   │   └── safety.ts          # Crisis detection
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── .env.example               # Template for env vars
+├── .env.local                 # Local env vars (gitignored)
+├── vercel.json                # Vercel config
+└── package.json
 ```
 
 ---
 
-## Configuration
+## Environment Variables
 
-### Gemini API Key
-
-Currently hardcoded in `src/agents/gemini.ts`:
-```typescript
-const genAI = new GoogleGenerativeAI('AIzaSyCIN_STz1D2N2-sDzTj_Sqp4lDuy1bI6Dg')
+### Local Development
+Create `.env.local`:
+```
+GEMINI_API_KEY=your_key_here
 ```
 
-**TODO**: Move to environment variable for production.
-
-### PWA Config
-
-In `vite.config.ts`:
-- App name: "Calm Companion"
-- Theme color: #6366f1 (indigo)
-- Background: #0f172a (slate-900)
+### Production (Vercel)
+Set in Vercel Dashboard → Settings → Environment Variables:
+- `GEMINI_API_KEY` = your Gemini API key
 
 ---
 
-## Running the App
+## Deployment
 
+### Auto-Deploy Setup
+1. Code is on GitHub: `briculinos/anxiety`
+2. Vercel watches the `main` branch
+3. Every `git push` triggers auto-deploy
+4. Live at: https://anxiety-away.vercel.app
+
+### Manual Deploy
 ```bash
-# Development
-npm run dev
-
-# Production build
 npm run build
+vercel --prod
+```
 
-# Preview production build
-npm run preview
+### Development
+```bash
+npm run dev
+# Opens at http://localhost:5173
 ```
 
 ---
 
 ## What's Next (V1 Features)
 
-These features are planned but not yet implemented:
-
-1. **Personalized "If X → do Y"** - Learn from usage patterns
-2. **Exposure Planning Assistant** - Graded exposure ladders (optional)
-3. **Partner Mode** - Support scripts for helpers
-4. **Audio Guidance** - Voiced breathing instructions
-5. **Cloud Sync** - Optional backup (opt-in only)
-6. **Onboarding Flow** - First-time user setup
-7. **Settings Page** - Configure emergency contacts, preferences
+- [ ] Onboarding flow for first-time users
+- [ ] Settings page (emergency contacts, preferences)
+- [ ] Audio guidance for breathing exercises
+- [ ] Personalized "If X → do Y" suggestions
+- [ ] Partner mode (support scripts for helpers)
+- [ ] Exposure planning assistant
+- [ ] Cloud sync (opt-in only)
 
 ---
 
-## Design Decisions
+## Changelog
 
-1. **No free-form LLM chat during crisis** - Structured flows with buttons only
-2. **Local-first storage** - Privacy is non-negotiable for mental health data
-3. **Pre-written clinical content** - LLM personalizes, doesn't generate scripts
-4. **PWA over native** - Faster iteration, works on both platforms
-5. **Minimal friction UX** - Big buttons, few steps, auto-save everything
-
----
-
-## Testing with Users
-
-When testing with your wife and brother-in-law:
-
-**Metrics to track**:
-- "Did intensity drop within 5 minutes?"
-- "Would you use it next time?"
-- "Which step felt annoying/too slow?"
-
-**A/B test ideas**:
-- Different breathing pacing (slow vs fast)
-- Different wording on prompts
-- Order of exercise recommendations
+### December 2024 - Initial Release
+- Full MVP with all coping exercises
+- AI-powered triage, reframing, and insights
+- Crisis detection and safety screen
+- Local-first storage with IndexedDB
+- PWA installable on mobile
+- Secure backend API (API key not exposed)
+- Back button navigation in flow
 
 ---
 
 ## Troubleshooting
 
-**Build fails with TypeScript errors**:
+**API not working:**
+- Check Vercel environment variable `GEMINI_API_KEY` is set
+- Check Vercel function logs for errors
+
+**Build fails:**
 ```bash
-npx tsc --noEmit
+npx tsc --noEmit  # Check TypeScript errors
 ```
 
-**Dexie database issues**:
-Clear IndexedDB in browser dev tools → Application → Storage → IndexedDB
+**Database issues:**
+Clear IndexedDB: Browser DevTools → Application → Storage → IndexedDB → Delete
 
-**Gemini API errors**:
-Check API key, quota limits, network connectivity. App has fallbacks for all AI calls.
+**PWA not updating:**
+Clear service worker: Browser DevTools → Application → Service Workers → Unregister
 
 ---
 
