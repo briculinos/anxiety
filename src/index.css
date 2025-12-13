@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-slate-900 text-white min-h-screen;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Prevent pull-to-refresh on mobile */
+  body {
+    overscroll-behavior-y: contain;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800
+           text-white font-medium rounded-2xl px-6 py-4
+           transition-all duration-200 ease-out
+           focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900
+           disabled:opacity-50 disabled:cursor-not-allowed
+           touch-manipulation;
+  }
+
+  .btn-secondary {
+    @apply bg-slate-700 hover:bg-slate-600 active:bg-slate-500
+           text-white font-medium rounded-2xl px-6 py-4
+           transition-all duration-200 ease-out
+           focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:ring-offset-slate-900
+           touch-manipulation;
+  }
+
+  .btn-panic {
+    @apply bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500
+           hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600
+           active:from-indigo-700 active:via-purple-700 active:to-pink-700
+           text-white font-semibold rounded-full
+           shadow-lg shadow-purple-500/30
+           transition-all duration-300 ease-out
+           focus:outline-none focus:ring-4 focus:ring-purple-500/50
+           touch-manipulation;
+  }
+
+  .card {
+    @apply bg-slate-800/50 backdrop-blur-sm rounded-2xl p-4
+           border border-slate-700/50;
+  }
+
+  .chip {
+    @apply inline-flex items-center px-4 py-2 rounded-full text-sm font-medium
+           bg-slate-700 text-slate-200
+           hover:bg-slate-600 active:bg-slate-500
+           transition-colors duration-150
+           touch-manipulation cursor-pointer;
+  }
+
+  .chip-selected {
+    @apply bg-indigo-600 text-white hover:bg-indigo-500;
+  }
+}
+
+/* Breathing circle animations */
+.breathing-circle {
+  @apply rounded-full bg-gradient-to-br from-indigo-400 via-purple-400 to-pink-400;
+  filter: blur(0px);
+}
+
+/* Safe area for bottom navigation */
+.safe-bottom {
+  padding-bottom: max(env(safe-area-inset-bottom), 1rem);
+}
+
+/* Haptic feedback simulation for browsers that support it */
+@media (hover: none) and (pointer: coarse) {
+  .haptic-tap:active {
+    transform: scale(0.98);
+  }
+}
