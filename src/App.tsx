@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Layout } from './components/common'
-import { Home, Toolbox, Reflect, Progress } from './pages'
+import { Home, Toolbox, Mantras, Reflect, Progress } from './pages'
 import { useAppStore } from './stores/appStore'
 import { initializeDB } from './db'
 
@@ -19,6 +19,8 @@ function App() {
         return <Home />
       case 'toolbox':
         return <Toolbox />
+      case 'mantras':
+        return <Mantras />
       case 'reflect':
         return <Reflect />
       case 'progress':

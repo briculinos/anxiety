@@ -38,8 +38,8 @@ interface AppState {
   setShowCrisisScreen: (show: boolean) => void
 
   // UI state
-  activeTab: 'home' | 'toolbox' | 'reflect' | 'progress'
-  setActiveTab: (tab: 'home' | 'toolbox' | 'reflect' | 'progress') => void
+  activeTab: 'home' | 'toolbox' | 'mantras' | 'reflect' | 'progress'
+  setActiveTab: (tab: 'home' | 'toolbox' | 'mantras' | 'reflect' | 'progress') => void
 
   // Settings
   hapticEnabled: boolean

@@ -359,6 +359,15 @@ The app uses a warm, calming color palette designed to reduce anxiety:
 
 ## Changelog
 
+### December 2024 - UX Improvements (Phase 3)
+- **Mantras page**: Dedicated section for calming mantras
+  - 12 pre-loaded mantras in Romanian and English
+  - Swipe navigation between mantras
+  - Random mantra button
+  - Favorites system (saved to localStorage)
+  - New tab in navigation (Sparkles icon)
+  - New files: `src/pages/Mantras.tsx`, `src/utils/defaultMantras.ts`
+
 ### December 2024 - UX Improvements (Phase 2)
 - **Encouraging messages**: Added motivational messages during exercises
   - Auto-detects device language (Romanian or English)

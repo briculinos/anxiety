@@ -1,10 +1,11 @@
-import { Home, Briefcase, BookOpen, BarChart2 } from 'lucide-react'
+import { Home, Briefcase, Sparkles, BookOpen, BarChart2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useAppStore } from '../../stores/appStore'
 
 const tabs = [
   { id: 'home', label: 'Home', icon: Home },
   { id: 'toolbox', label: 'Toolbox', icon: Briefcase },
+  { id: 'mantras', label: 'Mantras', icon: Sparkles },
   { id: 'reflect', label: 'Reflect', icon: BookOpen },
   { id: 'progress', label: 'Progress', icon: BarChart2 }
 ] as const
