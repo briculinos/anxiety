@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, RotateCcw } from 'lucide-react'
-import { Button } from '../common'
+import { Button, Encouragement } from '../common'
 import { useAppStore, useHaptic } from '../../stores/appStore'
 
 type Phase = 'inhale' | 'exhale'
@@ -25,6 +25,7 @@ export function PacedBreathing({
   const [timeLeft, setTimeLeft] = useState(inhaleTime)
   const [currentCycle, setCurrentCycle] = useState(1)
   const [isRunning, setIsRunning] = useState(true)
+  const [showEncouragement, setShowEncouragement] = useState(false)
   const addToolUsed = useAppStore(state => state.addToolUsed)
   const haptic = useHaptic()
 
@@ -50,6 +51,9 @@ export function PacedBreathing({
               return 0
             }
             setCurrentCycle(c => c + 1)
+            // Show encouragement on cycle complete
+            setShowEncouragement(true)
+            setTimeout(() => setShowEncouragement(false), 1500)
           }
 
           haptic.light()
@@ -135,8 +139,16 @@ export function PacedBreathing({
         <span className="block text-6xl font-bold text-warm-900 mt-4">{timeLeft}</span>
       </div>
 
+      {/* Encouragement */}
+      <div className="mt-6 h-10">
+        <Encouragement
+          show={showEncouragement}
+          type={currentCycle >= cycles - 1 ? 'almostDone' : 'cycleComplete'}
+        />
+      </div>
+
       {/* Timing info */}
-      <div className="mt-8 flex gap-8 text-warm-900/60 text-sm">
+      <div className="mt-4 flex gap-8 text-warm-900/60 text-sm">
         <div className={phase === 'inhale' ? 'text-warm-500' : ''}>
           In: {inhaleTime}s
         </div>

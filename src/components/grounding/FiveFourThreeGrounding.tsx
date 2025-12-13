@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Eye, Hand, Ear, Wind, Coffee, ChevronRight, Check } from 'lucide-react'
-import { Button } from '../common'
+import { Button, Encouragement } from '../common'
 import { useAppStore, useHaptic } from '../../stores/appStore'
 
 interface GroundingStep {
@@ -29,6 +29,7 @@ export function FiveFourThreeGrounding({ onComplete, onCancel }: FiveFourThreeGr
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const [itemsNamed, setItemsNamed] = useState(0)
   const [isComplete, setIsComplete] = useState(false)
+  const [showEncouragement, setShowEncouragement] = useState(false)
   const addToolUsed = useAppStore(state => state.addToolUsed)
   const haptic = useHaptic()
 
@@ -44,6 +45,9 @@ export function FiveFourThreeGrounding({ onComplete, onCancel }: FiveFourThreeGr
       if (currentStepIndex < steps.length - 1) {
         setCurrentStepIndex(prev => prev + 1)
         setItemsNamed(0)
+        // Show encouragement when completing a step
+        setShowEncouragement(true)
+        setTimeout(() => setShowEncouragement(false), 1500)
       } else {
         // All done
         setIsComplete(true)
@@ -124,6 +128,14 @@ export function FiveFourThreeGrounding({ onComplete, onCancel }: FiveFourThreeGr
                     }`}
                   />
                 ))}
+              </div>
+
+              {/* Encouragement */}
+              <div className="h-10">
+                <Encouragement
+                  show={showEncouragement}
+                  type={currentStepIndex >= steps.length - 2 ? 'almostDone' : 'phaseComplete'}
+                />
               </div>
 
               {/* Named button */}

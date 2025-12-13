@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, RotateCcw } from 'lucide-react'
-import { Button } from '../common'
+import { Button, Encouragement } from '../common'
 import { useAppStore, useHaptic } from '../../stores/appStore'
 
 type Phase = 'inhale' | 'hold1' | 'exhale' | 'hold2'
@@ -31,6 +31,7 @@ export function BoxBreathing({ onComplete, onCancel, pace = 'medium', cycles = 4
   const [timeLeft, setTimeLeft] = useState(paceSettings[pace].inhale)
   const [currentCycle, setCurrentCycle] = useState(1)
   const [isRunning, setIsRunning] = useState(true)
+  const [showEncouragement, setShowEncouragement] = useState(false)
   const addToolUsed = useAppStore(state => state.addToolUsed)
   const haptic = useHaptic()
 
@@ -71,6 +72,9 @@ export function BoxBreathing({ onComplete, onCancel, pace = 'medium', cycles = 4
               return 0
             }
             setCurrentCycle(c => c + 1)
+            // Show encouragement on cycle complete
+            setShowEncouragement(true)
+            setTimeout(() => setShowEncouragement(false), 1500)
           }
 
           haptic.light()
@@ -156,8 +160,16 @@ export function BoxBreathing({ onComplete, onCancel, pace = 'medium', cycles = 4
         </div>
       </div>
 
+      {/* Encouragement */}
+      <div className="mt-8 h-10">
+        <Encouragement
+          show={showEncouragement}
+          type={currentCycle >= cycles - 1 ? 'almostDone' : 'cycleComplete'}
+        />
+      </div>
+
       {/* Phase indicators */}
-      <div className="mt-12 flex gap-3">
+      <div className="mt-4 flex gap-3">
         {phaseOrder.map((p, i) => (
           <div
             key={p}
@@ -169,7 +181,7 @@ export function BoxBreathing({ onComplete, onCancel, pace = 'medium', cycles = 4
       </div>
 
       {/* Instructions */}
-      <p className="mt-8 text-warm-900/60 text-center max-w-xs">
+      <p className="mt-6 text-warm-900/60 text-center max-w-xs">
         Box breathing helps activate your body's relaxation response
       </p>
 

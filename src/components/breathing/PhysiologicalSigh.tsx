@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, RotateCcw } from 'lucide-react'
-import { Button } from '../common'
+import { Button, Encouragement } from '../common'
 import { useAppStore, useHaptic } from '../../stores/appStore'
 
 type Phase = 'inhale1' | 'inhale2' | 'exhale'
@@ -23,6 +23,7 @@ export function PhysiologicalSigh({ onComplete, onCancel, cycles = 3 }: Physiolo
   const [timeLeft, setTimeLeft] = useState(phaseConfig.inhale1.duration)
   const [currentCycle, setCurrentCycle] = useState(1)
   const [isRunning, setIsRunning] = useState(true)
+  const [showEncouragement, setShowEncouragement] = useState(false)
   const addToolUsed = useAppStore(state => state.addToolUsed)
   const haptic = useHaptic()
 
@@ -51,6 +52,9 @@ export function PhysiologicalSigh({ onComplete, onCancel, cycles = 3 }: Physiolo
               return 0
             }
             setCurrentCycle(c => c + 1)
+            // Show encouragement on cycle complete
+            setShowEncouragement(true)
+            setTimeout(() => setShowEncouragement(false), 1500)
           }
 
           haptic.light()
@@ -134,8 +138,16 @@ export function PhysiologicalSigh({ onComplete, onCancel, cycles = 3 }: Physiolo
         </div>
       </div>
 
+      {/* Encouragement */}
+      <div className="mt-8 h-10">
+        <Encouragement
+          show={showEncouragement}
+          type={currentCycle >= cycles - 1 ? 'almostDone' : 'cycleComplete'}
+        />
+      </div>
+
       {/* Phase indicators */}
-      <div className="mt-12 flex gap-3">
+      <div className="mt-4 flex gap-3">
         <div className={`px-3 py-1 rounded-full text-sm ${phase === 'inhale1' ? 'bg-warm-500 text-white' : 'bg-warm-200 text-warm-900/60'}`}>
           In
         </div>

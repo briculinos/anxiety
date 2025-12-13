@@ -1,6 +1,7 @@
 export { Button } from './Button'
 export { Card } from './Card'
 export { Chip } from './Chip'
+export { Encouragement, EncouragementInline } from './Encouragement'
 export { IntensitySlider } from './IntensitySlider'
 export { Navigation } from './Navigation'
 export { Layout } from './Layout'

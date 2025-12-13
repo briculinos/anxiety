@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronRight, Check } from 'lucide-react'
-import { Button } from '../common'
+import { Button, Encouragement } from '../common'
 import { useAppStore, useHaptic } from '../../stores/appStore'
 
 interface MuscleGroup {
@@ -34,6 +34,7 @@ export function MuscleRelaxation({ onComplete, onCancel, shortened = true }: Mus
   const [phase, setPhase] = useState<Phase>('tense')
   const [timeLeft, setTimeLeft] = useState(5)
   const [isComplete, setIsComplete] = useState(false)
+  const [showEncouragement, setShowEncouragement] = useState(false)
   const addToolUsed = useAppStore(state => state.addToolUsed)
   const haptic = useHaptic()
 
@@ -64,6 +65,9 @@ export function MuscleRelaxation({ onComplete, onCancel, shortened = true }: Mus
             if (currentGroupIndex < groups.length - 1) {
               setCurrentGroupIndex(prev => prev + 1)
               setPhase('tense')
+              // Show encouragement when moving to next muscle group
+              setShowEncouragement(true)
+              setTimeout(() => setShowEncouragement(false), 1500)
               return phaseDurations.tense
             } else {
               setIsComplete(true)
@@ -160,6 +164,14 @@ export function MuscleRelaxation({ onComplete, onCancel, shortened = true }: Mus
               <p className="text-xl text-warm-900 max-w-xs">
                 {getPhaseInstruction()}
               </p>
+
+              {/* Encouragement */}
+              <div className="h-10">
+                <Encouragement
+                  show={showEncouragement}
+                  type={currentGroupIndex >= groups.length - 2 ? 'almostDone' : 'phaseComplete'}
+                />
+              </div>
 
               {/* Muscle group indicator */}
               <div className="flex flex-wrap justify-center gap-2 max-w-xs">
