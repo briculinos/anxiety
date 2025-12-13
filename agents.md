@@ -359,6 +359,15 @@ The app uses a warm, calming color palette designed to reduce anxiety:
 
 ## Changelog
 
+### December 2024 - UX Improvements (Phase 4)
+- **Background sounds**: App-wide ambient sound system
+  - 4 sound options: Ocean Waves, Rain, Forest, Meditation
+  - Floating control button (bottom-right)
+  - Volume control slider
+  - Bilingual labels (Romanian/English)
+  - Auto-loops, remembers selection
+  - New files: `src/hooks/useAmbientSound.ts`, `src/components/common/SoundControl.tsx`
+
 ### December 2024 - UX Improvements (Phase 3)
 - **Mantras page**: Dedicated section for calming mantras
   - 12 pre-loaded mantras in Romanian and English

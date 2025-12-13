@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Layout } from './components/common'
+import { SoundControl } from './components/common/SoundControl'
 import { Home, Toolbox, Mantras, Reflect, Progress } from './pages'
 import { useAppStore } from './stores/appStore'
 import { initializeDB } from './db'
@@ -43,6 +44,7 @@ function App() {
           {renderPage()}
         </motion.div>
       </AnimatePresence>
+      <SoundControl />
     </Layout>
   )
 }

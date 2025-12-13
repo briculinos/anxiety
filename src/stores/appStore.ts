@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import type { FlowState, Severity, BreathingType } from '../types'
 
+type SoundType = 'waves' | 'rain' | 'forest' | 'music' | null
+
 interface CurrentEpisode {
   startTime: Date
   intensity: number
@@ -44,8 +46,14 @@ interface AppState {
   // Settings
   hapticEnabled: boolean
   setHapticEnabled: (enabled: boolean) => void
+
+  // Ambient sound
   soundEnabled: boolean
   setSoundEnabled: (enabled: boolean) => void
+  currentSound: SoundType
+  setCurrentSound: (sound: SoundType) => void
+  soundVolume: number
+  setSoundVolume: (volume: number) => void
 
   // Reset
   reset: () => void
@@ -59,7 +67,9 @@ const initialState = {
   showCrisisScreen: false,
   activeTab: 'home' as const,
   hapticEnabled: true,
-  soundEnabled: false
+  soundEnabled: false,
+  currentSound: null as SoundType,
+  soundVolume: 0.5
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -167,6 +177,10 @@ export const useAppStore = create<AppState>((set, get) => ({
   setHapticEnabled: (hapticEnabled) => set({ hapticEnabled }),
 
   setSoundEnabled: (soundEnabled) => set({ soundEnabled }),
+
+  setCurrentSound: (currentSound) => set({ currentSound }),
+
+  setSoundVolume: (soundVolume) => set({ soundVolume }),
 
   reset: () => set(initialState)
 }))
