@@ -7,18 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Mocha Mousse (Pantone 2025) background with soft pastel UI
+        // Light calming background with Mocha Mousse accent
         warm: {
-          50: '#A47551',   // Mocha Mousse - MAIN BACKGROUND
-          100: '#FFF8F0',  // Cream white (cards background)
-          200: '#F5EDE6',  // Soft cream (card borders)
+          50: '#FDF8F3',   // Very light cream - MAIN BACKGROUND
+          100: '#FFFFFF',  // White (cards)
+          200: '#F5EDE6',  // Soft cream (borders)
           300: '#E8DFD5',  // Light cream
-          400: '#3D3D3D',  // Dark text for cards
-          500: '#B8E0D2',  // Soft mint green (primary - "I feel anxious")
-          600: '#95D5B2',  // Mint hover
-          700: '#DDD5F3',  // Soft lavender (secondary buttons)
-          800: '#C8BDE8',  // Lavender hover
-          900: '#FFFFFF',  // White text (on mocha background)
+          400: '#A47551',  // Mocha Mousse - "I FEEL ANXIOUS" BUTTON
+          500: '#8B6344',  // Darker mocha (hover)
+          600: '#B8E0D2',  // Soft mint green (quick tools)
+          700: '#DDD5F3',  // Soft lavender (secondary)
+          800: '#F5D5E0',  // Soft pink
+          900: '#4A4A4A',  // Dark gray text
         },
         calm: {
           50: '#f0f9ff',

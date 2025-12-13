@@ -23,54 +23,54 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-warm-500 hover:bg-warm-600 active:bg-warm-600
-           text-warm-400 font-medium rounded-2xl px-6 py-4
+    @apply bg-warm-600 hover:bg-warm-600/90 active:bg-warm-600/90
+           text-warm-900 font-medium rounded-2xl px-6 py-4
            transition-all duration-200 ease-out
-           focus:outline-none focus:ring-2 focus:ring-warm-500 focus:ring-offset-2 focus:ring-offset-warm-50
+           focus:outline-none focus:ring-2 focus:ring-warm-600 focus:ring-offset-2 focus:ring-offset-warm-50
            disabled:opacity-50 disabled:cursor-not-allowed
            touch-manipulation;
   }
 
   .btn-secondary {
-    @apply bg-warm-700 hover:bg-warm-800 active:bg-warm-800
-           text-warm-400 font-medium rounded-2xl px-6 py-4
+    @apply bg-warm-700 hover:bg-warm-700/90 active:bg-warm-700/90
+           text-warm-900 font-medium rounded-2xl px-6 py-4
            transition-all duration-200 ease-out
            focus:outline-none focus:ring-2 focus:ring-warm-700 focus:ring-offset-2 focus:ring-offset-warm-50
            touch-manipulation;
   }
 
   .btn-panic {
-    @apply bg-warm-500
-           hover:bg-warm-600
-           active:bg-warm-600
-           text-warm-400 font-semibold rounded-full
-           shadow-lg shadow-warm-500/40
+    @apply bg-warm-400
+           hover:bg-warm-500
+           active:bg-warm-500
+           text-white font-semibold rounded-full
+           shadow-lg shadow-warm-400/40
            transition-all duration-300 ease-out
-           focus:outline-none focus:ring-4 focus:ring-warm-500/50
+           focus:outline-none focus:ring-4 focus:ring-warm-400/50
            touch-manipulation;
   }
 
   .card {
     @apply bg-warm-100 rounded-2xl p-4
-           border border-warm-200;
+           border border-warm-200 shadow-sm;
   }
 
   .chip {
     @apply inline-flex items-center px-4 py-2 rounded-full text-sm font-medium
-           bg-warm-100 text-warm-400
-           hover:bg-warm-200 active:bg-warm-200
+           bg-warm-600 text-warm-900
+           hover:bg-warm-600/80 active:bg-warm-600/80
            transition-colors duration-150
            touch-manipulation cursor-pointer;
   }
 
   .chip-selected {
-    @apply bg-warm-500 text-warm-400 hover:bg-warm-600;
+    @apply bg-warm-400 text-white hover:bg-warm-500;
   }
 }
 
 /* Breathing circle animations */
 .breathing-circle {
-  @apply rounded-full bg-gradient-to-br from-warm-500 via-warm-700 to-warm-500;
+  @apply rounded-full bg-gradient-to-br from-warm-600 via-warm-700 to-warm-600;
   filter: blur(0px);
 }
 

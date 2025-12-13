@@ -32,8 +32,8 @@ export function Navigation() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-colors ${
                 isActive
-                  ? 'text-warm-600'
-                  : 'text-warm-400/60 hover:text-warm-400'
+                  ? 'text-warm-400'
+                  : 'text-warm-900/50 hover:text-warm-900'
               }`}
             >
               <div className="relative">
@@ -41,7 +41,7 @@ export function Navigation() {
                 {isActive && (
                   <motion.div
                     layoutId="nav-indicator"
-                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-warm-600"
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-warm-400"
                   />
                 )}
               </div>
