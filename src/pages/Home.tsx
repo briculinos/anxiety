@@ -225,7 +225,7 @@ export function Home() {
             <div className="flex items-center gap-3 mb-6">
               <button
                 onClick={handleCancel}
-                className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
+                className="p-2 rounded-full bg-warm-100 text-warm-400/60 hover:text-warm-900 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -282,7 +282,7 @@ export function Home() {
             <div className="flex items-center gap-3 mb-6">
               <button
                 onClick={handleBack}
-                className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
+                className="p-2 rounded-full bg-warm-100 text-warm-400/60 hover:text-warm-900 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -359,7 +359,7 @@ export function Home() {
             <div className="flex items-center gap-3 mb-6">
               <button
                 onClick={handleBack}
-                className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
+                className="p-2 rounded-full bg-warm-100 text-warm-400/60 hover:text-warm-900 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>

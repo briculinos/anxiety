@@ -7,18 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Cloud Dancer inspired palette (Pantone 2026 - soft white)
+        // Mocha Mousse (Pantone 2025) background with soft pastel UI
         warm: {
-          50: '#FAFAF8',   // Cloud white background (almost white)
-          100: '#F5F5F3',  // Soft gray-white (cards)
-          200: '#ECEAE6',  // Light warm gray
-          300: '#E0DDD8',  // Warm gray (borders)
-          400: '#C9C5BE',  // Medium warm gray
-          500: '#8B9A8B',  // Sage green (primary - calming)
-          600: '#7A8A7A',  // Darker sage
-          700: '#6B8F71',  // Forest green (success)
-          800: '#5A7A5F',  // Darker green
-          900: '#4A5568',  // Soft dark gray (text)
+          50: '#A47551',   // Mocha Mousse - MAIN BACKGROUND
+          100: '#FFF8F0',  // Cream white (cards background)
+          200: '#F5EDE6',  // Soft cream (card borders)
+          300: '#E8DFD5',  // Light cream
+          400: '#3D3D3D',  // Dark text for cards
+          500: '#B8E0D2',  // Soft mint green (primary - "I feel anxious")
+          600: '#95D5B2',  // Mint hover
+          700: '#DDD5F3',  // Soft lavender (secondary buttons)
+          800: '#C8BDE8',  // Lavender hover
+          900: '#FFFFFF',  // White text (on mocha background)
         },
         calm: {
           50: '#f0f9ff',

@@ -19,7 +19,7 @@ export function Navigation() {
   }
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-warm-50/95 backdrop-blur-lg border-t border-warm-200 safe-bottom z-50">
+    <nav className="fixed bottom-0 left-0 right-0 bg-warm-100 backdrop-blur-lg border-t border-warm-200 safe-bottom z-50">
       <div className="flex justify-around items-center px-4 py-2">
         {tabs.map((tab) => {
           const Icon = tab.icon
@@ -32,8 +32,8 @@ export function Navigation() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-colors ${
                 isActive
-                  ? 'text-warm-500'
-                  : 'text-warm-900/50 hover:text-warm-900'
+                  ? 'text-warm-600'
+                  : 'text-warm-400/60 hover:text-warm-400'
               }`}
             >
               <div className="relative">
@@ -41,7 +41,7 @@ export function Navigation() {
                 {isActive && (
                   <motion.div
                     layoutId="nav-indicator"
-                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-warm-500"
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-warm-600"
                   />
                 )}
               </div>
