@@ -27,13 +27,13 @@ export function IntensitySlider({ value, onChange, label = 'How intense is your 
 
   return (
     <div className="w-full space-y-4">
-      <label className="block text-lg font-medium text-slate-200">
+      <label className="block text-lg font-medium text-warm-900">
         {label}
       </label>
 
       <div className="relative">
         {/* Track */}
-        <div className="h-3 bg-slate-700 rounded-full overflow-hidden">
+        <div className="h-3 bg-warm-200 rounded-full overflow-hidden">
           <motion.div
             className={`h-full bg-gradient-to-r ${currentIntensity.color}`}
             initial={{ width: 0 }}
@@ -58,7 +58,7 @@ export function IntensitySlider({ value, onChange, label = 'How intense is your 
 
         {/* Thumb indicator */}
         <motion.div
-          className={`absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white shadow-lg ${isDragging ? 'scale-125' : ''}`}
+          className={`absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white shadow-lg border border-warm-200 ${isDragging ? 'scale-125' : ''}`}
           style={{ left: `calc(${value * 10}% - 12px)` }}
           animate={{ scale: isDragging ? 1.25 : 1 }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
@@ -67,7 +67,7 @@ export function IntensitySlider({ value, onChange, label = 'How intense is your 
 
       {/* Value display */}
       <div className="flex justify-between items-center">
-        <span className="text-3xl font-bold text-white">{value}</span>
+        <span className="text-3xl font-bold text-warm-900">{value}</span>
         <motion.span
           key={value}
           initial={{ opacity: 0, y: 10 }}
@@ -88,8 +88,8 @@ export function IntensitySlider({ value, onChange, label = 'How intense is your 
             onClick={() => onChange(num)}
             className={`flex-1 py-2 text-sm rounded-lg transition-colors ${
               value === num
-                ? 'bg-indigo-600 text-white'
-                : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                ? 'bg-warm-500 text-white'
+                : 'bg-warm-100 text-warm-900 hover:bg-warm-200'
             }`}
           >
             {num}

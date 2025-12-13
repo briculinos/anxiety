@@ -91,15 +91,15 @@ export function ThoughtHelper({ onComplete, onCancel }: ThoughtHelperProps) {
             exit={{ opacity: 0, x: -50 }}
             className="space-y-4"
           >
-            <h2 className="text-xl font-bold text-white">What's happening?</h2>
-            <p className="text-slate-400 text-sm">
+            <h2 className="text-xl font-bold text-warm-900">What's happening?</h2>
+            <p className="text-warm-900/60 text-sm">
               Briefly describe the situation that's causing you anxiety.
             </p>
             <textarea
               value={situation}
               onChange={(e) => setSituation(e.target.value)}
               placeholder="e.g., I have a presentation at work tomorrow..."
-              className="w-full h-28 bg-slate-800 border border-slate-700 rounded-xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+              className="w-full h-28 bg-warm-100 border border-warm-200 rounded-xl p-4 text-warm-900 placeholder-warm-900/40 focus:outline-none focus:ring-2 focus:ring-warm-500 resize-none"
             />
           </motion.div>
         )
@@ -113,15 +113,15 @@ export function ThoughtHelper({ onComplete, onCancel }: ThoughtHelperProps) {
             exit={{ opacity: 0, x: -50 }}
             className="space-y-4"
           >
-            <h2 className="text-xl font-bold text-white">What's the scary thought?</h2>
-            <p className="text-slate-400 text-sm">
+            <h2 className="text-xl font-bold text-warm-900">What's the scary thought?</h2>
+            <p className="text-warm-900/60 text-sm">
               What's your mind telling you might happen?
             </p>
             <textarea
               value={thought}
               onChange={(e) => setThought(e.target.value)}
               placeholder="e.g., I'll forget what to say and everyone will think I'm incompetent..."
-              className="w-full h-28 bg-slate-800 border border-slate-700 rounded-xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+              className="w-full h-28 bg-warm-100 border border-warm-200 rounded-xl p-4 text-warm-900 placeholder-warm-900/40 focus:outline-none focus:ring-2 focus:ring-warm-500 resize-none"
             />
           </motion.div>
         )
@@ -135,8 +135,8 @@ export function ThoughtHelper({ onComplete, onCancel }: ThoughtHelperProps) {
             exit={{ opacity: 0, x: -50 }}
             className="space-y-4"
           >
-            <h2 className="text-xl font-bold text-white">How are you feeling?</h2>
-            <p className="text-slate-400 text-sm">
+            <h2 className="text-xl font-bold text-warm-900">How are you feeling?</h2>
+            <p className="text-warm-900/60 text-sm">
               Pick the emotion that best describes how you feel.
             </p>
             <div className="flex flex-wrap gap-2">
@@ -146,8 +146,8 @@ export function ThoughtHelper({ onComplete, onCancel }: ThoughtHelperProps) {
                   onClick={() => setEmotion(e)}
                   className={`px-4 py-2 rounded-full text-sm transition-colors ${
                     emotion === e
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                      ? 'bg-warm-500 text-white'
+                      : 'bg-warm-100 text-warm-900 hover:bg-warm-200'
                   }`}
                 >
                   {e}
@@ -161,7 +161,7 @@ export function ThoughtHelper({ onComplete, onCancel }: ThoughtHelperProps) {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-2 pt-4"
               >
-                <label className="text-sm text-slate-300">
+                <label className="text-sm text-warm-900/80">
                   How intense is this feeling? ({emotionIntensity}/10)
                 </label>
                 <input
@@ -186,28 +186,28 @@ export function ThoughtHelper({ onComplete, onCancel }: ThoughtHelperProps) {
             exit={{ opacity: 0, x: -50 }}
             className="space-y-4"
           >
-            <h2 className="text-xl font-bold text-white">A different perspective</h2>
+            <h2 className="text-xl font-bold text-warm-900">A different perspective</h2>
 
             {reframe && (
               <>
-                <Card className="bg-indigo-900/30 border-indigo-800/50">
-                  <p className="text-indigo-200">{reframe.validation}</p>
+                <Card className="bg-warm-500/10 border-warm-500/30">
+                  <p className="text-warm-900/80">{reframe.validation}</p>
                 </Card>
 
                 <div className="flex items-start gap-3 pt-2">
-                  <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
-                    <Lightbulb className="w-5 h-5 text-yellow-400" />
+                  <div className="w-10 h-10 rounded-full bg-warm-300/40 flex items-center justify-center flex-shrink-0">
+                    <Lightbulb className="w-5 h-5 text-warm-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-slate-400 mb-1">A more balanced thought:</p>
-                    <p className="text-white">{reframe.balanced}</p>
+                    <p className="text-sm text-warm-900/60 mb-1">A more balanced thought:</p>
+                    <p className="text-warm-900">{reframe.balanced}</p>
                   </div>
                 </div>
               </>
             )}
 
             <Card className="mt-4">
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-warm-900/60">
                 This doesn't mean your original thought was wrong. It's about adding flexibility
                 to your thinking, not replacing one thought with another.
               </p>
@@ -223,11 +223,11 @@ export function ThoughtHelper({ onComplete, onCancel }: ThoughtHelperProps) {
             animate={{ opacity: 1, scale: 1 }}
             className="text-center space-y-6"
           >
-            <div className="w-24 h-24 mx-auto rounded-full bg-green-500/20 flex items-center justify-center">
-              <Check className="w-12 h-12 text-green-400" />
+            <div className="w-24 h-24 mx-auto rounded-full bg-warm-700/20 flex items-center justify-center">
+              <Check className="w-12 h-12 text-warm-700" />
             </div>
-            <h2 className="text-2xl font-bold text-white">Well done</h2>
-            <p className="text-slate-300 max-w-xs mx-auto">
+            <h2 className="text-2xl font-bold text-warm-900">Well done</h2>
+            <p className="text-warm-900/70 max-w-xs mx-auto">
               You've taken time to examine your thoughts. This record has been saved
               to your journal.
             </p>
@@ -240,16 +240,16 @@ export function ThoughtHelper({ onComplete, onCancel }: ThoughtHelperProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-slate-900 flex flex-col z-40">
+    <div className="fixed inset-0 bg-warm-50 flex flex-col z-40">
       {/* Header */}
       <div className="flex justify-between items-center p-4">
         <button
           onClick={onCancel}
-          className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+          className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
         >
           <X className="w-6 h-6" />
         </button>
-        <span className="text-slate-400 text-sm">
+        <span className="text-warm-900/60 text-sm">
           Thought Helper
         </span>
         <div className="w-10" />
@@ -258,9 +258,9 @@ export function ThoughtHelper({ onComplete, onCancel }: ThoughtHelperProps) {
       {/* Progress */}
       {step !== 'complete' && (
         <div className="px-4">
-          <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
+          <div className="h-1 bg-warm-200 rounded-full overflow-hidden">
             <motion.div
-              className="h-full bg-indigo-500"
+              className="h-full bg-warm-500"
               animate={{
                 width: step === 'situation' ? '25%'
                   : step === 'thought' ? '50%'

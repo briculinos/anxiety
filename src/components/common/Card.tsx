@@ -8,12 +8,12 @@ interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onDrag' | 'onD
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ variant = 'default', padding = 'md', children, className = '', onClick, ...props }, ref) => {
-    const baseStyles = 'rounded-2xl border border-slate-700/50'
+    const baseStyles = 'rounded-2xl border border-warm-200'
 
     const variants = {
-      default: 'bg-slate-800/50 backdrop-blur-sm',
-      elevated: 'bg-slate-800 shadow-lg shadow-black/20',
-      interactive: 'bg-slate-800/50 backdrop-blur-sm hover:bg-slate-700/50 active:bg-slate-700 cursor-pointer transition-colors'
+      default: 'bg-warm-100',
+      elevated: 'bg-warm-100 shadow-lg shadow-warm-900/10',
+      interactive: 'bg-warm-100 hover:bg-warm-200 active:bg-warm-200 cursor-pointer transition-colors'
     }
 
     const paddings = {

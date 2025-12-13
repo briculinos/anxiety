@@ -44,23 +44,23 @@ export function WorryPostponement({ onComplete, onCancel }: WorryPostponementPro
 
   if (saved) {
     return (
-      <div className="fixed inset-0 bg-slate-900 flex flex-col items-center justify-center px-6 z-40">
+      <div className="fixed inset-0 bg-warm-50 flex flex-col items-center justify-center px-6 z-40">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="text-center space-y-6"
         >
-          <div className="w-24 h-24 mx-auto rounded-full bg-green-500/20 flex items-center justify-center">
-            <Check className="w-12 h-12 text-green-400" />
+          <div className="w-24 h-24 mx-auto rounded-full bg-warm-700/20 flex items-center justify-center">
+            <Check className="w-12 h-12 text-warm-700" />
           </div>
-          <h2 className="text-2xl font-bold text-white">Worry saved for later</h2>
-          <p className="text-slate-300 max-w-xs">
+          <h2 className="text-2xl font-bold text-warm-900">Worry saved for later</h2>
+          <p className="text-warm-900/70 max-w-xs">
             You've acknowledged this worry and set aside time to think about it.
             For now, you can let it go.
           </p>
           <Card className="text-left">
-            <p className="text-sm text-slate-400 mb-1">Scheduled for:</p>
-            <p className="text-white font-medium">
+            <p className="text-sm text-warm-900/60 mb-1">Scheduled for:</p>
+            <p className="text-warm-900 font-medium">
               {selectedTime === 'later' ? 'In 2 hours' : selectedTime === 'tomorrow' ? 'Tomorrow at 10 AM' : 'Later'}
             </p>
           </Card>
@@ -73,16 +73,16 @@ export function WorryPostponement({ onComplete, onCancel }: WorryPostponementPro
   }
 
   return (
-    <div className="fixed inset-0 bg-slate-900 flex flex-col z-40">
+    <div className="fixed inset-0 bg-warm-50 flex flex-col z-40">
       {/* Header */}
       <div className="flex justify-between items-center p-4">
         <button
           onClick={onCancel}
-          className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+          className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
         >
           <X className="w-6 h-6" />
         </button>
-        <span className="text-slate-400 text-sm">
+        <span className="text-warm-900/60 text-sm">
           Worry Postponement
         </span>
         <div className="w-10" />
@@ -91,10 +91,10 @@ export function WorryPostponement({ onComplete, onCancel }: WorryPostponementPro
       <div className="flex-1 px-6 py-4 overflow-y-auto">
         {/* Explanation */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-white mb-2">
+          <h1 className="text-2xl font-bold text-warm-900 mb-2">
             Save this worry for later
           </h1>
-          <p className="text-slate-400">
+          <p className="text-warm-900/60">
             Write down what's worrying you. We'll remind you to think about it at a better time,
             when you're feeling calmer and can approach it with a clearer mind.
           </p>
@@ -102,20 +102,20 @@ export function WorryPostponement({ onComplete, onCancel }: WorryPostponementPro
 
         {/* Worry input */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-slate-300 mb-2">
+          <label className="block text-sm font-medium text-warm-900/80 mb-2">
             What's on your mind?
           </label>
           <textarea
             value={worry}
             onChange={(e) => setWorry(e.target.value)}
             placeholder="Write your worry here..."
-            className="w-full h-32 bg-slate-800 border border-slate-700 rounded-xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+            className="w-full h-32 bg-warm-100 border border-warm-200 rounded-xl p-4 text-warm-900 placeholder-warm-900/40 focus:outline-none focus:ring-2 focus:ring-warm-500 resize-none"
           />
         </div>
 
         {/* Time selection */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-slate-300 mb-3">
+          <label className="block text-sm font-medium text-warm-900/80 mb-3">
             When should we revisit this?
           </label>
           <div className="space-y-2">
@@ -123,8 +123,8 @@ export function WorryPostponement({ onComplete, onCancel }: WorryPostponementPro
               onClick={() => setSelectedTime('later')}
               className={`w-full flex items-center gap-3 p-4 rounded-xl transition-colors ${
                 selectedTime === 'later'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-warm-500 text-white'
+                  : 'bg-warm-100 text-warm-900 hover:bg-warm-200'
               }`}
             >
               <Clock className="w-5 h-5" />
@@ -138,8 +138,8 @@ export function WorryPostponement({ onComplete, onCancel }: WorryPostponementPro
               onClick={() => setSelectedTime('tomorrow')}
               className={`w-full flex items-center gap-3 p-4 rounded-xl transition-colors ${
                 selectedTime === 'tomorrow'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-warm-500 text-white'
+                  : 'bg-warm-100 text-warm-900 hover:bg-warm-200'
               }`}
             >
               <Calendar className="w-5 h-5" />
@@ -152,8 +152,8 @@ export function WorryPostponement({ onComplete, onCancel }: WorryPostponementPro
         </div>
 
         {/* Tip */}
-        <Card className="bg-indigo-900/30 border-indigo-800/50">
-          <p className="text-sm text-indigo-200">
+        <Card className="bg-warm-500/10 border-warm-500/30">
+          <p className="text-sm text-warm-900/80">
             <strong>Why this helps:</strong> Worrying rarely solves problems in the moment.
             By scheduling "worry time," you acknowledge the concern without letting it
             control your present moment.

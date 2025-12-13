@@ -16,8 +16,8 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
     }
 
     const selectedStyles = selected
-      ? 'bg-indigo-600 text-white hover:bg-indigo-500'
-      : 'bg-slate-700 text-slate-200 hover:bg-slate-600 active:bg-slate-500'
+      ? 'bg-warm-500 text-white hover:bg-warm-600'
+      : 'bg-warm-100 text-warm-900 hover:bg-warm-200 active:bg-warm-200'
 
     return (
       <motion.button

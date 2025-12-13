@@ -55,8 +55,8 @@ export function Reflect() {
   return (
     <div className="min-h-screen px-4 py-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white mb-2">Reflect</h1>
-        <p className="text-slate-400 text-sm">
+        <h1 className="text-2xl font-bold text-warm-900 mb-2">Reflect</h1>
+        <p className="text-warm-900/60 text-sm">
           Look back at your experiences and insights
         </p>
       </div>
@@ -64,21 +64,21 @@ export function Reflect() {
       {/* Pending Worries */}
       {pendingWorries.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-sm font-medium text-slate-400 mb-3 flex items-center gap-2">
+          <h2 className="text-sm font-medium text-warm-900/60 mb-3 flex items-center gap-2">
             <Clock className="w-4 h-4" />
             Scheduled Worries
           </h2>
           <div className="space-y-3">
             {pendingWorries.map((worry) => (
-              <Card key={worry.id} className="bg-amber-900/20 border-amber-800/50">
-                <p className="text-white mb-2">{worry.worry}</p>
+              <Card key={worry.id} className="bg-warm-300/30 border-warm-400/50">
+                <p className="text-warm-900 mb-2">{worry.worry}</p>
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-amber-300">
+                  <span className="text-warm-700">
                     Scheduled for {formatDate(worry.scheduledFor)}
                   </span>
                   <button
                     onClick={() => handleAddressWorry(worry.id)}
-                    className="text-indigo-400 hover:text-indigo-300"
+                    className="text-warm-500 hover:text-warm-600"
                   >
                     Mark as addressed
                   </button>
@@ -91,15 +91,15 @@ export function Reflect() {
 
       {/* Recent Episodes */}
       <div className="mb-8">
-        <h2 className="text-sm font-medium text-slate-400 mb-3 flex items-center gap-2">
+        <h2 className="text-sm font-medium text-warm-900/60 mb-3 flex items-center gap-2">
           <Calendar className="w-4 h-4" />
           Recent Episodes
         </h2>
 
         {episodes.length === 0 ? (
           <Card className="text-center py-8">
-            <p className="text-slate-400">No episodes recorded yet</p>
-            <p className="text-slate-500 text-sm mt-1">
+            <p className="text-warm-900/60">No episodes recorded yet</p>
+            <p className="text-warm-900/40 text-sm mt-1">
               They'll appear here when you use the app during anxious moments
             </p>
           </Card>
@@ -117,23 +117,23 @@ export function Reflect() {
                     <div className={`w-3 h-3 rounded-full ${getIntensityColor(episode.intensity)}`} />
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-medium text-white">
+                        <span className="font-medium text-warm-900">
                           Intensity: {episode.intensity}/10
                         </span>
                         {episode.durationMinutes && (
-                          <span className="text-sm text-slate-400">
+                          <span className="text-sm text-warm-900/60">
                             ({episode.durationMinutes} min)
                           </span>
                         )}
                       </div>
-                      <span className="text-sm text-slate-400">
+                      <span className="text-sm text-warm-900/60">
                         {formatDate(episode.timestamp)}
                       </span>
                     </div>
                     {expandedEpisode === episode.id ? (
-                      <ChevronUp className="w-5 h-5 text-slate-400" />
+                      <ChevronUp className="w-5 h-5 text-warm-900/40" />
                     ) : (
-                      <ChevronDown className="w-5 h-5 text-slate-400" />
+                      <ChevronDown className="w-5 h-5 text-warm-900/40" />
                     )}
                   </div>
 
@@ -141,16 +141,16 @@ export function Reflect() {
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
-                      className="mt-4 pt-4 border-t border-slate-700 space-y-3"
+                      className="mt-4 pt-4 border-t border-warm-200 space-y-3"
                     >
                       {episode.triggers.length > 0 && (
                         <div>
-                          <label className="text-xs text-slate-400 block mb-1">Triggers</label>
+                          <label className="text-xs text-warm-900/60 block mb-1">Triggers</label>
                           <div className="flex flex-wrap gap-1">
                             {episode.triggers.map((trigger) => (
                               <span
                                 key={trigger}
-                                className="px-2 py-1 bg-slate-700 rounded text-xs text-slate-300"
+                                className="px-2 py-1 bg-warm-200 rounded text-xs text-warm-900"
                               >
                                 {trigger}
                               </span>
@@ -161,12 +161,12 @@ export function Reflect() {
 
                       {episode.symptoms.length > 0 && (
                         <div>
-                          <label className="text-xs text-slate-400 block mb-1">Symptoms</label>
+                          <label className="text-xs text-warm-900/60 block mb-1">Symptoms</label>
                           <div className="flex flex-wrap gap-1">
                             {episode.symptoms.map((symptom) => (
                               <span
                                 key={symptom}
-                                className="px-2 py-1 bg-slate-700 rounded text-xs text-slate-300"
+                                className="px-2 py-1 bg-warm-200 rounded text-xs text-warm-900"
                               >
                                 {symptom}
                               </span>
@@ -177,12 +177,12 @@ export function Reflect() {
 
                       {episode.toolsUsed.length > 0 && (
                         <div>
-                          <label className="text-xs text-slate-400 block mb-1">Tools used</label>
+                          <label className="text-xs text-warm-900/60 block mb-1">Tools used</label>
                           <div className="flex flex-wrap gap-1">
                             {episode.toolsUsed.map((tool) => (
                               <span
                                 key={tool}
-                                className="px-2 py-1 bg-indigo-900/50 rounded text-xs text-indigo-300"
+                                className="px-2 py-1 bg-warm-500/20 rounded text-xs text-warm-600"
                               >
                                 {tool}
                               </span>
@@ -202,7 +202,7 @@ export function Reflect() {
       {/* Thought Records */}
       {thoughtRecords.length > 0 && (
         <div>
-          <h2 className="text-sm font-medium text-slate-400 mb-3 flex items-center gap-2">
+          <h2 className="text-sm font-medium text-warm-900/60 mb-3 flex items-center gap-2">
             <Lightbulb className="w-4 h-4" />
             Thought Records
           </h2>
@@ -211,20 +211,20 @@ export function Reflect() {
               <Card key={record.id}>
                 <div className="space-y-2">
                   <div>
-                    <label className="text-xs text-slate-400">Situation</label>
-                    <p className="text-white text-sm">{record.situation}</p>
+                    <label className="text-xs text-warm-900/60">Situation</label>
+                    <p className="text-warm-900 text-sm">{record.situation}</p>
                   </div>
                   <div>
-                    <label className="text-xs text-slate-400">Thought</label>
-                    <p className="text-white text-sm">{record.automaticThought}</p>
+                    <label className="text-xs text-warm-900/60">Thought</label>
+                    <p className="text-warm-900 text-sm">{record.automaticThought}</p>
                   </div>
                   {record.balancedThought && (
-                    <div className="pt-2 border-t border-slate-700">
-                      <label className="text-xs text-indigo-400">Reframe</label>
-                      <p className="text-indigo-200 text-sm">{record.balancedThought}</p>
+                    <div className="pt-2 border-t border-warm-200">
+                      <label className="text-xs text-warm-500">Reframe</label>
+                      <p className="text-warm-700 text-sm">{record.balancedThought}</p>
                     </div>
                   )}
-                  <div className="flex items-center justify-between pt-2 text-xs text-slate-500">
+                  <div className="flex items-center justify-between pt-2 text-xs text-warm-900/40">
                     <span>{record.emotion} ({record.emotionIntensity}/10)</span>
                     <span>{formatDate(record.timestamp)}</span>
                   </div>

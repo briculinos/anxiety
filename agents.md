@@ -328,7 +328,43 @@ npm run dev
 
 ---
 
+## Design System
+
+### Color Palette (Warm Theme)
+
+The app uses a warm, calming color palette designed to reduce anxiety:
+
+| Token | Hex | Usage |
+|-------|-----|-------|
+| warm-50 | #FFF8F0 | Main background (cream) |
+| warm-100 | #FEF3E2 | Cards, inputs (soft peach) |
+| warm-200 | #FDE7C7 | Borders, disabled states |
+| warm-300 | #F2CC8F | Highlights, accents (soft gold) |
+| warm-400 | #E9B97A | Warm gold accents |
+| warm-500 | #E07A5F | Primary actions (warm coral) |
+| warm-600 | #C96A52 | Hover states |
+| warm-700 | #81B29A | Success/complete (sage green) |
+| warm-800 | #6B9A85 | Darker sage |
+| warm-900 | #3D405B | Text (warm dark blue-gray) |
+
+### Component Patterns
+
+- **Backgrounds**: `bg-warm-50` for pages, `bg-warm-100` for cards
+- **Text**: `text-warm-900` primary, `text-warm-900/60` secondary
+- **Buttons**: `bg-warm-500` primary, `bg-warm-100` secondary
+- **Progress bars**: `from-warm-500 to-warm-400` gradient
+- **Success states**: `bg-warm-700/20` with `text-warm-700`
+
+---
+
 ## Changelog
+
+### December 2024 - UX Improvements (Phase 1)
+- **Warm calming theme**: Replaced dark slate theme with warm cream/coral colors
+  - New color palette: cream background, coral accents, sage green for success
+  - All components updated: breathing exercises, grounding, exercises, pages
+  - Improved readability and soothing visual experience
+- Based on user testing feedback ("E plictiseală!" - It's boring!)
 
 ### December 2024 - Initial Release
 - Full MVP with all coping exercises

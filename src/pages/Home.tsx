@@ -179,8 +179,8 @@ export function Home() {
             className="flex flex-col items-center justify-center min-h-[80vh]"
           >
             <div className="text-center mb-12">
-              <h1 className="text-3xl font-bold text-white mb-2">Calm Companion</h1>
-              <p className="text-slate-400">Here when you need support</p>
+              <h1 className="text-3xl font-bold text-warm-900 mb-2">Calm Companion</h1>
+              <p className="text-warm-900/60">Here when you need support</p>
             </div>
 
             {/* Main panic button */}
@@ -196,13 +196,13 @@ export function Home() {
 
             {/* Quick access tools */}
             <div className="mt-12 w-full max-w-sm">
-              <p className="text-sm text-slate-400 text-center mb-4">Quick tools</p>
+              <p className="text-sm text-warm-900/60 text-center mb-4">Quick tools</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {quickTools.slice(0, 4).map((tool) => (
                   <button
                     key={tool.id}
                     onClick={() => handleStartExercise(tool.id)}
-                    className="px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-full text-sm text-slate-300 transition-colors"
+                    className="px-4 py-2 bg-warm-100 hover:bg-warm-200 rounded-full text-sm text-warm-900 transition-colors"
                   >
                     {tool.name}
                   </button>
@@ -225,13 +225,13 @@ export function Home() {
             <div className="flex items-center gap-3 mb-6">
               <button
                 onClick={handleCancel}
-                className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+                className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
               <div>
-                <h1 className="text-2xl font-bold text-white">Let's check in</h1>
-                <p className="text-slate-400 text-sm">Take a breath. You're here, and that's a good step.</p>
+                <h1 className="text-2xl font-bold text-warm-900">Let's check in</h1>
+                <p className="text-warm-900/60 text-sm">Take a breath. You're here, and that's a good step.</p>
               </div>
             </div>
 
@@ -256,10 +256,10 @@ export function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 className="mt-4"
               >
-                <Card className="bg-amber-900/30 border-amber-800/50">
+                <Card className="bg-warm-300/30 border-warm-400/50">
                   <div className="flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-amber-200">
+                    <AlertCircle className="w-5 h-5 text-warm-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-warm-900">
                       This feels intense. We'll get you to a calming exercise right away.
                     </p>
                   </div>
@@ -282,20 +282,20 @@ export function Home() {
             <div className="flex items-center gap-3 mb-6">
               <button
                 onClick={handleBack}
-                className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+                className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <div>
-                <h1 className="text-2xl font-bold text-white">What are you noticing?</h1>
-                <p className="text-slate-400 text-sm">Tap any that apply (optional)</p>
+                <h1 className="text-2xl font-bold text-warm-900">What are you noticing?</h1>
+                <p className="text-warm-900/60 text-sm">Tap any that apply (optional)</p>
               </div>
             </div>
 
             <div className="space-y-6">
               {/* Symptoms */}
               <div>
-                <label className="text-sm font-medium text-slate-300 mb-3 block">Physical feelings</label>
+                <label className="text-sm font-medium text-warm-900 mb-3 block">Physical feelings</label>
                 <div className="flex flex-wrap gap-2">
                   {DEFAULT_SYMPTOMS.map((symptom) => (
                     <Chip
@@ -315,7 +315,7 @@ export function Home() {
 
               {/* Triggers */}
               <div>
-                <label className="text-sm font-medium text-slate-300 mb-3 block">What triggered this?</label>
+                <label className="text-sm font-medium text-warm-900 mb-3 block">What triggered this?</label>
                 <div className="flex flex-wrap gap-2">
                   {DEFAULT_TRIGGERS.map((trigger) => (
                     <Chip
@@ -359,13 +359,13 @@ export function Home() {
             <div className="flex items-center gap-3 mb-6">
               <button
                 onClick={handleBack}
-                className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+                className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <div>
-                <h1 className="text-2xl font-bold text-white">Choose a tool</h1>
-                <p className="text-slate-400 text-sm">
+                <h1 className="text-2xl font-bold text-warm-900">Choose a tool</h1>
+                <p className="text-warm-900/60 text-sm">
                   {intensity >= 7
                     ? 'Let\'s calm your body first. Try breathing or grounding.'
                     : 'Pick what feels right for you.'}
@@ -389,26 +389,26 @@ export function Home() {
                     <Card
                       variant="interactive"
                       onClick={() => handleStartExercise(tool.id)}
-                      className={isRecommended ? 'ring-2 ring-indigo-500' : ''}
+                      className={isRecommended ? 'ring-2 ring-warm-500' : ''}
                     >
                       <div className="flex items-center gap-4">
                         <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                          isRecommended ? 'bg-indigo-500/20' : 'bg-slate-700'
+                          isRecommended ? 'bg-warm-500/20' : 'bg-warm-200'
                         }`}>
-                          <Icon className={`w-6 h-6 ${isRecommended ? 'text-indigo-400' : 'text-slate-300'}`} />
+                          <Icon className={`w-6 h-6 ${isRecommended ? 'text-warm-500' : 'text-warm-900/60'}`} />
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="font-medium text-white">{tool.name}</span>
+                            <span className="font-medium text-warm-900">{tool.name}</span>
                             {isRecommended && (
-                              <span className="text-xs bg-indigo-600 text-white px-2 py-0.5 rounded-full">
+                              <span className="text-xs bg-warm-500 text-white px-2 py-0.5 rounded-full">
                                 Recommended
                               </span>
                             )}
                           </div>
-                          <span className="text-sm text-slate-400">{tool.description}</span>
+                          <span className="text-sm text-warm-900/60">{tool.description}</span>
                         </div>
-                        <ChevronRight className="w-5 h-5 text-slate-500" />
+                        <ChevronRight className="w-5 h-5 text-warm-900/40" />
                       </div>
                     </Card>
                   </motion.div>
@@ -432,7 +432,7 @@ export function Home() {
             animate={{ opacity: 1, scale: 1 }}
             className="flex flex-col items-center justify-center min-h-[80vh] text-center"
           >
-            <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-green-500/20 flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-warm-700/20 flex items-center justify-center">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -442,8 +442,8 @@ export function Home() {
                 ✓
               </motion.div>
             </div>
-            <h1 className="text-2xl font-bold text-white mb-2">Great job</h1>
-            <p className="text-slate-400 max-w-xs">
+            <h1 className="text-2xl font-bold text-warm-900 mb-2">Great job</h1>
+            <p className="text-warm-900/60 max-w-xs">
               You took care of yourself. This moment has been saved.
             </p>
           </motion.div>

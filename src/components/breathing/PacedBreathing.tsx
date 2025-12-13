@@ -71,21 +71,21 @@ export function PacedBreathing({
   }
 
   return (
-    <div className="fixed inset-0 bg-slate-900 flex flex-col items-center justify-center px-6 z-40">
+    <div className="fixed inset-0 bg-warm-50 flex flex-col items-center justify-center px-6 z-40">
       {/* Header */}
       <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
         <button
           onClick={onCancel}
-          className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+          className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
         >
           <X className="w-6 h-6" />
         </button>
-        <span className="text-slate-400 text-sm">
+        <span className="text-warm-900/60 text-sm">
           Breath {currentCycle} of {cycles}
         </span>
         <button
           onClick={handleRestart}
-          className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+          className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
         >
           <RotateCcw className="w-6 h-6" />
         </button>
@@ -94,7 +94,7 @@ export function PacedBreathing({
       {/* Breathing visualization - wave style */}
       <div className="relative w-80 h-48 flex items-center justify-center overflow-hidden">
         <motion.div
-          className="absolute inset-0 bg-gradient-to-t from-indigo-600/30 to-transparent"
+          className="absolute inset-0 bg-gradient-to-t from-warm-500/30 to-transparent"
           animate={{
             y: phase === 'inhale' ? '-50%' : '0%'
           }}
@@ -112,7 +112,7 @@ export function PacedBreathing({
               initial={{ scale: 0.8, opacity: 0.5 }}
               animate={{ scale: 1.5, opacity: 0 }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="absolute w-32 h-32 rounded-full border-2 border-indigo-400"
+              className="absolute w-32 h-32 rounded-full border-2 border-warm-400"
             />
           )}
         </AnimatePresence>
@@ -127,26 +127,26 @@ export function PacedBreathing({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
           >
-            <span className="text-3xl font-medium text-white">
+            <span className="text-3xl font-medium text-warm-900">
               {phase === 'inhale' ? 'Breathe in...' : 'Breathe out...'}
             </span>
           </motion.div>
         </AnimatePresence>
-        <span className="block text-6xl font-bold text-white mt-4">{timeLeft}</span>
+        <span className="block text-6xl font-bold text-warm-900 mt-4">{timeLeft}</span>
       </div>
 
       {/* Timing info */}
-      <div className="mt-8 flex gap-8 text-slate-400 text-sm">
-        <div className={phase === 'inhale' ? 'text-indigo-400' : ''}>
+      <div className="mt-8 flex gap-8 text-warm-900/60 text-sm">
+        <div className={phase === 'inhale' ? 'text-warm-500' : ''}>
           In: {inhaleTime}s
         </div>
-        <div className={phase === 'exhale' ? 'text-indigo-400' : ''}>
+        <div className={phase === 'exhale' ? 'text-warm-500' : ''}>
           Out: {exhaleTime}s
         </div>
       </div>
 
       {/* Instructions */}
-      <p className="mt-8 text-slate-400 text-center max-w-xs">
+      <p className="mt-8 text-warm-900/60 text-center max-w-xs">
         Longer exhales activate your parasympathetic nervous system, promoting calm
       </p>
 

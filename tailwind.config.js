@@ -7,6 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Warm calming palette
+        warm: {
+          50: '#FFF8F0',   // Cream background
+          100: '#FEF3E2',  // Soft peach (cards)
+          200: '#FDE7C7',  // Light peach
+          300: '#F2CC8F',  // Soft gold (highlight)
+          400: '#E9B97A',  // Warm gold
+          500: '#E07A5F',  // Warm coral (primary)
+          600: '#C96A52',  // Darker coral
+          700: '#81B29A',  // Sage green (secondary)
+          800: '#6B9A85',  // Darker sage
+          900: '#3D405B',  // Warm dark blue-gray (text)
+        },
         calm: {
           50: '#f0f9ff',
           100: '#e0f2fe',

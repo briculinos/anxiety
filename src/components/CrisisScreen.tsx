@@ -26,7 +26,7 @@ export function CrisisScreen() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-slate-900 z-50 flex flex-col"
+      className="fixed inset-0 bg-warm-50 z-50 flex flex-col"
     >
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-8 space-y-8 overflow-y-auto">
         {/* Header */}
@@ -36,13 +36,13 @@ export function CrisisScreen() {
           transition={{ delay: 0.1 }}
           className="text-center space-y-4"
         >
-          <div className="w-20 h-20 mx-auto bg-pink-500/20 rounded-full flex items-center justify-center">
-            <Heart className="w-10 h-10 text-pink-400" />
+          <div className="w-20 h-20 mx-auto bg-warm-500/20 rounded-full flex items-center justify-center">
+            <Heart className="w-10 h-10 text-warm-500" />
           </div>
-          <h1 className="text-2xl font-bold text-white">
+          <h1 className="text-2xl font-bold text-warm-900">
             You're not alone
           </h1>
-          <p className="text-slate-300 max-w-sm">
+          <p className="text-warm-900/70 max-w-sm">
             It sounds like you're going through something really difficult right now.
             Please reach out to someone who can help.
           </p>
@@ -56,32 +56,32 @@ export function CrisisScreen() {
           className="w-full max-w-sm space-y-4"
         >
           {/* US Resources */}
-          <div className="bg-slate-800/50 rounded-2xl p-4 space-y-3">
-            <h2 className="font-semibold text-white">Crisis Support</h2>
+          <div className="bg-warm-100 rounded-2xl p-4 space-y-3">
+            <h2 className="font-semibold text-warm-900">Crisis Support</h2>
 
             <button
               onClick={() => handleCall(DEFAULT_EMERGENCY_RESOURCES.US.crisis)}
-              className="w-full flex items-center gap-4 p-4 bg-indigo-600 hover:bg-indigo-700 rounded-xl transition-colors"
+              className="w-full flex items-center gap-4 p-4 bg-warm-500 hover:bg-warm-600 rounded-xl transition-colors"
             >
-              <div className="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-warm-400 rounded-full flex items-center justify-center">
                 <Phone className="w-6 h-6 text-white" />
               </div>
               <div className="text-left">
                 <div className="font-semibold text-white">Call 988</div>
-                <div className="text-sm text-indigo-200">Suicide & Crisis Lifeline</div>
+                <div className="text-sm text-warm-100">Suicide & Crisis Lifeline</div>
               </div>
             </button>
 
             <button
               onClick={() => window.open('sms:741741?body=HOME', '_blank')}
-              className="w-full flex items-center gap-4 p-4 bg-slate-700 hover:bg-slate-600 rounded-xl transition-colors"
+              className="w-full flex items-center gap-4 p-4 bg-warm-200 hover:bg-warm-300 rounded-xl transition-colors"
             >
-              <div className="w-12 h-12 bg-slate-600 rounded-full flex items-center justify-center">
-                <MessageCircle className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-warm-300 rounded-full flex items-center justify-center">
+                <MessageCircle className="w-6 h-6 text-warm-900" />
               </div>
               <div className="text-left">
-                <div className="font-semibold text-white">Text HOME to 741741</div>
-                <div className="text-sm text-slate-300">Crisis Text Line</div>
+                <div className="font-semibold text-warm-900">Text HOME to 741741</div>
+                <div className="text-sm text-warm-900/60">Crisis Text Line</div>
               </div>
             </button>
           </div>
@@ -108,7 +108,7 @@ export function CrisisScreen() {
           transition={{ delay: 0.3 }}
           className="text-center space-y-2 max-w-sm"
         >
-          <p className="text-slate-400 text-sm">
+          <p className="text-warm-900/60 text-sm">
             While you wait or if you can't call right now, try taking slow, deep breaths.
             You matter, and this moment will pass.
           </p>

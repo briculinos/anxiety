@@ -97,16 +97,16 @@ export function MuscleRelaxation({ onComplete, onCancel, shortened = true }: Mus
   }
 
   return (
-    <div className="fixed inset-0 bg-slate-900 flex flex-col z-40">
+    <div className="fixed inset-0 bg-warm-50 flex flex-col z-40">
       {/* Header */}
       <div className="flex justify-between items-center p-4">
         <button
           onClick={onCancel}
-          className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+          className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
         >
           <X className="w-6 h-6" />
         </button>
-        <span className="text-slate-400 text-sm">
+        <span className="text-warm-900/60 text-sm">
           Progressive Muscle Relaxation
         </span>
         <div className="w-10" />
@@ -114,13 +114,13 @@ export function MuscleRelaxation({ onComplete, onCancel, shortened = true }: Mus
 
       {/* Progress */}
       <div className="px-4">
-        <div className="flex justify-between text-xs text-slate-400 mb-2">
+        <div className="flex justify-between text-xs text-warm-900/60 mb-2">
           <span>{currentGroup.name}</span>
           <span>{currentGroupIndex + 1} of {groups.length}</span>
         </div>
-        <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+        <div className="h-2 bg-warm-200 rounded-full overflow-hidden">
           <motion.div
-            className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+            className="h-full bg-gradient-to-r from-warm-500 to-warm-400"
             animate={{ width: `${((currentGroupIndex + 1) / groups.length) * 100}%` }}
           />
         </div>
@@ -157,7 +157,7 @@ export function MuscleRelaxation({ onComplete, onCancel, shortened = true }: Mus
               </div>
 
               {/* Instruction */}
-              <p className="text-xl text-slate-200 max-w-xs">
+              <p className="text-xl text-warm-900 max-w-xs">
                 {getPhaseInstruction()}
               </p>
 
@@ -168,10 +168,10 @@ export function MuscleRelaxation({ onComplete, onCancel, shortened = true }: Mus
                     key={group.name}
                     className={`px-3 py-1 rounded-full text-sm ${
                       i < currentGroupIndex
-                        ? 'bg-green-600/20 text-green-400'
+                        ? 'bg-warm-700/20 text-warm-700'
                         : i === currentGroupIndex
-                        ? 'bg-indigo-600/20 text-indigo-400'
-                        : 'bg-slate-800 text-slate-500'
+                        ? 'bg-warm-500/20 text-warm-500'
+                        : 'bg-warm-200 text-warm-900/50'
                     }`}
                   >
                     {i < currentGroupIndex && <Check className="w-3 h-3 inline mr-1" />}
@@ -186,11 +186,11 @@ export function MuscleRelaxation({ onComplete, onCancel, shortened = true }: Mus
               animate={{ opacity: 1, scale: 1 }}
               className="text-center space-y-6"
             >
-              <div className="w-24 h-24 mx-auto rounded-full bg-green-500/20 flex items-center justify-center">
-                <Check className="w-12 h-12 text-green-400" />
+              <div className="w-24 h-24 mx-auto rounded-full bg-warm-700/20 flex items-center justify-center">
+                <Check className="w-12 h-12 text-warm-700" />
               </div>
-              <h2 className="text-2xl font-bold text-white">Complete</h2>
-              <p className="text-slate-300 max-w-xs">
+              <h2 className="text-2xl font-bold text-warm-900">Complete</h2>
+              <p className="text-warm-900/70 max-w-xs">
                 Notice the difference between tension and relaxation in your body.
               </p>
               <Button variant="primary" onClick={onComplete}>
@@ -205,7 +205,7 @@ export function MuscleRelaxation({ onComplete, onCancel, shortened = true }: Mus
       {/* Tip */}
       {!isComplete && (
         <div className="p-6 safe-bottom">
-          <p className="text-sm text-slate-500 text-center">
+          <p className="text-sm text-warm-900/50 text-center">
             {phase === 'tense'
               ? 'Hold the tension firmly but don\'t strain'
               : phase === 'release'

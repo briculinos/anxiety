@@ -74,21 +74,21 @@ export function PhysiologicalSigh({ onComplete, onCancel, cycles = 3 }: Physiolo
   const currentConfig = phaseConfig[phase]
 
   return (
-    <div className="fixed inset-0 bg-slate-900 flex flex-col items-center justify-center px-6 z-40">
+    <div className="fixed inset-0 bg-warm-50 flex flex-col items-center justify-center px-6 z-40">
       {/* Header */}
       <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
         <button
           onClick={onCancel}
-          className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+          className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
         >
           <X className="w-6 h-6" />
         </button>
-        <span className="text-slate-400 text-sm">
+        <span className="text-warm-900/60 text-sm">
           Sigh {currentCycle} of {cycles}
         </span>
         <button
           onClick={handleRestart}
-          className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+          className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
         >
           <RotateCcw className="w-6 h-6" />
         </button>
@@ -96,7 +96,7 @@ export function PhysiologicalSigh({ onComplete, onCancel, cycles = 3 }: Physiolo
 
       {/* Description */}
       <div className="absolute top-20 text-center px-6">
-        <p className="text-slate-400 text-sm max-w-xs mx-auto">
+        <p className="text-warm-900/60 text-sm max-w-xs mx-auto">
           The physiological sigh is the fastest way to calm down.
           Two inhales through the nose, then a long exhale through the mouth.
         </p>
@@ -106,7 +106,7 @@ export function PhysiologicalSigh({ onComplete, onCancel, cycles = 3 }: Physiolo
       <div className="relative w-64 h-64 flex items-center justify-center">
         {/* Lung-like visualization */}
         <motion.div
-          className="w-48 h-56 rounded-[40%] bg-gradient-to-b from-cyan-400/40 via-blue-400/40 to-indigo-400/40"
+          className="w-48 h-56 rounded-[40%] bg-gradient-to-b from-warm-400/40 via-warm-500/40 to-warm-600/40"
           animate={{
             scale: currentConfig.scale,
             borderRadius: phase === 'inhale2' ? '45%' : '40%'
@@ -125,24 +125,24 @@ export function PhysiologicalSigh({ onComplete, onCancel, cycles = 3 }: Physiolo
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="text-xl font-medium text-white mb-2 text-center px-4"
+              className="text-xl font-medium text-warm-900 mb-2 text-center px-4"
             >
               {currentConfig.instruction}
             </motion.span>
           </AnimatePresence>
-          <span className="text-5xl font-bold text-white">{timeLeft}</span>
+          <span className="text-5xl font-bold text-warm-900">{timeLeft}</span>
         </div>
       </div>
 
       {/* Phase indicators */}
       <div className="mt-12 flex gap-3">
-        <div className={`px-3 py-1 rounded-full text-sm ${phase === 'inhale1' ? 'bg-cyan-600 text-white' : 'bg-slate-700 text-slate-400'}`}>
+        <div className={`px-3 py-1 rounded-full text-sm ${phase === 'inhale1' ? 'bg-warm-500 text-white' : 'bg-warm-200 text-warm-900/60'}`}>
           In
         </div>
-        <div className={`px-3 py-1 rounded-full text-sm ${phase === 'inhale2' ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-400'}`}>
+        <div className={`px-3 py-1 rounded-full text-sm ${phase === 'inhale2' ? 'bg-warm-500 text-white' : 'bg-warm-200 text-warm-900/60'}`}>
           +Sip
         </div>
-        <div className={`px-3 py-1 rounded-full text-sm ${phase === 'exhale' ? 'bg-indigo-600 text-white' : 'bg-slate-700 text-slate-400'}`}>
+        <div className={`px-3 py-1 rounded-full text-sm ${phase === 'exhale' ? 'bg-warm-500 text-white' : 'bg-warm-200 text-warm-900/60'}`}>
           Out
         </div>
       </div>

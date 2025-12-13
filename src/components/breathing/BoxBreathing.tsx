@@ -101,21 +101,21 @@ export function BoxBreathing({ onComplete, onCancel, pace = 'medium', cycles = 4
   }
 
   return (
-    <div className="fixed inset-0 bg-slate-900 flex flex-col items-center justify-center px-6 z-40">
+    <div className="fixed inset-0 bg-warm-50 flex flex-col items-center justify-center px-6 z-40">
       {/* Header */}
       <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
         <button
           onClick={onCancel}
-          className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+          className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
         >
           <X className="w-6 h-6" />
         </button>
-        <span className="text-slate-400 text-sm">
+        <span className="text-warm-900/60 text-sm">
           Cycle {currentCycle} of {cycles}
         </span>
         <button
           onClick={handleRestart}
-          className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+          className="p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
         >
           <RotateCcw className="w-6 h-6" />
         </button>
@@ -124,11 +124,11 @@ export function BoxBreathing({ onComplete, onCancel, pace = 'medium', cycles = 4
       {/* Breathing visualization */}
       <div className="relative w-64 h-64 flex items-center justify-center">
         {/* Outer ring */}
-        <div className="absolute inset-0 rounded-full border-2 border-slate-700" />
+        <div className="absolute inset-0 rounded-full border-2 border-warm-200" />
 
         {/* Animated circle */}
         <motion.div
-          className="w-48 h-48 rounded-full bg-gradient-to-br from-indigo-400 via-purple-400 to-pink-400 opacity-60"
+          className="w-48 h-48 rounded-full bg-gradient-to-br from-warm-500 via-warm-400 to-warm-300 opacity-60"
           animate={{
             scale: getScale(),
             opacity: phase === 'hold1' || phase === 'hold2' ? 0.8 : 0.6
@@ -147,12 +147,12 @@ export function BoxBreathing({ onComplete, onCancel, pace = 'medium', cycles = 4
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="text-2xl font-medium text-white mb-2"
+              className="text-2xl font-medium text-warm-900 mb-2"
             >
               {phaseInstructions[phase]}
             </motion.span>
           </AnimatePresence>
-          <span className="text-5xl font-bold text-white">{timeLeft}</span>
+          <span className="text-5xl font-bold text-warm-900">{timeLeft}</span>
         </div>
       </div>
 
@@ -162,14 +162,14 @@ export function BoxBreathing({ onComplete, onCancel, pace = 'medium', cycles = 4
           <div
             key={p}
             className={`w-3 h-3 rounded-full transition-colors ${
-              phaseOrder.indexOf(phase) >= i ? 'bg-indigo-500' : 'bg-slate-700'
+              phaseOrder.indexOf(phase) >= i ? 'bg-warm-500' : 'bg-warm-200'
             }`}
           />
         ))}
       </div>
 
       {/* Instructions */}
-      <p className="mt-8 text-slate-400 text-center max-w-xs">
+      <p className="mt-8 text-warm-900/60 text-center max-w-xs">
         Box breathing helps activate your body's relaxation response
       </p>
 
