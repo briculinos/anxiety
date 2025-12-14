@@ -8,7 +8,11 @@
   }
 
   body {
-    @apply bg-warm-50 text-warm-900 min-h-screen;
+    @apply min-h-screen text-slate-800;
+    background-image: url('/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
@@ -23,54 +27,69 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-warm-600 hover:bg-warm-600/90 active:bg-warm-600/90
-           text-warm-900 font-medium rounded-2xl px-6 py-4
+    @apply font-medium rounded-2xl px-6 py-4
            transition-all duration-200 ease-out
-           focus:outline-none focus:ring-2 focus:ring-warm-600 focus:ring-offset-2 focus:ring-offset-warm-50
+           focus:outline-none focus:ring-2 focus:ring-offset-2
            disabled:opacity-50 disabled:cursor-not-allowed
            touch-manipulation;
+    background-color: #B8E0D2; /* Soft mint green */
+    color: #3D405B;
+  }
+  .btn-primary:hover, .btn-primary:active {
+    background-color: #A5D4C4;
   }
 
   .btn-secondary {
-    @apply bg-warm-700 hover:bg-warm-700/90 active:bg-warm-700/90
-           text-warm-900 font-medium rounded-2xl px-6 py-4
+    @apply font-medium rounded-2xl px-6 py-4
            transition-all duration-200 ease-out
-           focus:outline-none focus:ring-2 focus:ring-warm-700 focus:ring-offset-2 focus:ring-offset-warm-50
+           focus:outline-none focus:ring-2 focus:ring-offset-2
            touch-manipulation;
+    background-color: #DDD5F3; /* Soft lavender */
+    color: #3D405B;
+  }
+  .btn-secondary:hover, .btn-secondary:active {
+    background-color: #CEC4E8;
   }
 
   .btn-panic {
-    @apply bg-warm-400
-           hover:bg-warm-500
-           active:bg-warm-500
-           text-white font-semibold rounded-full
-           shadow-lg shadow-warm-400/40
+    @apply text-white font-semibold rounded-full
+           shadow-lg
            transition-all duration-300 ease-out
-           focus:outline-none focus:ring-4 focus:ring-warm-400/50
+           focus:outline-none focus:ring-4
            touch-manipulation;
+    background-color: #A47551; /* Mocha Mousse */
+  }
+  .btn-panic:hover, .btn-panic:active {
+    background-color: #8B6344;
   }
 
   .card {
-    @apply bg-warm-100 rounded-2xl p-4
-           border border-warm-200 shadow-sm;
+    @apply rounded-2xl p-4 shadow-sm backdrop-blur-sm;
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.5);
   }
 
   .chip {
     @apply inline-flex items-center px-4 py-2 rounded-full text-sm font-medium
-           bg-warm-600 text-warm-900
-           hover:bg-warm-600/80 active:bg-warm-600/80
            transition-colors duration-150
            touch-manipulation cursor-pointer;
+    background-color: #B8E0D2;
+    color: #3D405B;
+  }
+  .chip:hover, .chip:active {
+    background-color: #A5D4C4;
   }
 
   .chip-selected {
-    @apply bg-warm-400 text-white hover:bg-warm-500;
+    background-color: #A47551 !important;
+    color: white !important;
   }
 }
 
 /* Breathing circle animations */
 .breathing-circle {
-  @apply rounded-full bg-gradient-to-br from-warm-600 via-warm-700 to-warm-600;
+  @apply rounded-full;
+  background: linear-gradient(135deg, #B8E0D2, #DDD5F3, #B8E0D2);
   filter: blur(0px);
 }
 
