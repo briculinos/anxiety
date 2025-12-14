@@ -8,13 +8,13 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg', 'background.jpg'],
       manifest: {
         name: 'Calm Companion',
         short_name: 'Calm',
         description: 'Your anxiety support companion',
-        theme_color: '#6366f1',
-        background_color: '#0f172a',
+        theme_color: '#FDF8F3',
+        background_color: '#FDF8F3',
         display: 'standalone',
         orientation: 'portrait',
         scope: '/',
@@ -39,7 +39,7 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,jpg,jpeg}'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/generativelanguage\.googleapis\.com\/.*/i,
