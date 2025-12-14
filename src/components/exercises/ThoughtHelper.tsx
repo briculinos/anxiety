@@ -26,6 +26,7 @@ export function ThoughtHelper({ onComplete, onCancel }: ThoughtHelperProps) {
   const [emotion, setEmotion] = useState('')
   const [emotionIntensity, setEmotionIntensity] = useState(5)
   const [reframe, setReframe] = useState<{ validation: string; balanced: string } | null>(null)
+  const [userBalancedThought, setUserBalancedThought] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const addToolUsed = useAppStore(state => state.addToolUsed)
   const haptic = useHaptic()
@@ -51,14 +52,14 @@ export function ThoughtHelper({ onComplete, onCancel }: ThoughtHelperProps) {
       setIsLoading(false)
       setStep('reframe')
     } else if (step === 'reframe') {
-      // Save the thought record
+      // Save the thought record (use user's input if provided, otherwise AI suggestion)
       await saveThoughtRecord({
         timestamp: new Date(),
         situation,
         automaticThought: thought,
         emotion,
         emotionIntensity,
-        balancedThought: reframe?.balanced
+        balancedThought: userBalancedThought.trim() || reframe?.balanced
       })
       addToolUsed('Thought reframe')
       haptic.medium()
@@ -194,14 +195,21 @@ export function ThoughtHelper({ onComplete, onCancel }: ThoughtHelperProps) {
                   <p className="text-warm-900/80">{reframe.validation}</p>
                 </Card>
 
-                <div className="flex items-start gap-3 pt-2">
-                  <div className="w-10 h-10 rounded-full bg-warm-300/40 flex items-center justify-center flex-shrink-0">
-                    <Lightbulb className="w-5 h-5 text-warm-600" />
+                <div className="pt-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-warm-300/40 flex items-center justify-center flex-shrink-0">
+                      <Lightbulb className="w-4 h-4 text-warm-600" />
+                    </div>
+                    <p className="text-sm text-warm-900/60">A more balanced thought:</p>
                   </div>
-                  <div>
-                    <p className="text-sm text-warm-900/60 mb-1">A more balanced thought:</p>
-                    <p className="text-warm-900">{reframe.balanced}</p>
-                  </div>
+                  <p className="text-warm-900 mb-3">{reframe.balanced}</p>
+
+                  <textarea
+                    value={userBalancedThought}
+                    onChange={(e) => setUserBalancedThought(e.target.value)}
+                    placeholder="Write your own balanced thought here... What would you tell a friend?"
+                    className="w-full h-24 bg-warm-100 border border-warm-200 rounded-xl p-4 text-warm-900 placeholder-warm-900/40 focus:outline-none focus:ring-2 focus:ring-warm-500 resize-none"
+                  />
                 </div>
               </>
             )}
