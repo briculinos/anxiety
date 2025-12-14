@@ -11,7 +11,15 @@ export function Layout({ children }: LayoutProps) {
   const showNav = flowState === 'idle' || flowState === 'complete'
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white">
+    <div
+      className="min-h-screen text-slate-800"
+      style={{
+        backgroundImage: 'url(/background.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
       <main className={`${showNav ? 'pb-24' : ''}`}>
         {children}
       </main>
