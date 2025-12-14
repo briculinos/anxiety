@@ -3,12 +3,12 @@ import { useAppStore } from '../stores/appStore'
 
 export type SoundType = 'waves' | 'rain' | 'forest' | 'music' | null
 
-// Free ambient sound URLs (royalty-free sources)
+// Local ambient sound files (royalty-free from SoundJay)
 const soundUrls: Record<Exclude<SoundType, null>, string> = {
-  waves: 'https://cdn.pixabay.com/audio/2022/05/27/audio_8bfb3dfc09.mp3',
-  rain: 'https://cdn.pixabay.com/audio/2022/10/30/audio_26b9509cda.mp3',
-  forest: 'https://cdn.pixabay.com/audio/2022/02/23/audio_2a834f3f98.mp3',
-  music: 'https://cdn.pixabay.com/audio/2024/02/14/audio_c4ef7d2b9a.mp3'
+  waves: '/sounds/waves.mp3',
+  rain: '/sounds/rain.mp3',
+  forest: '/sounds/forest.mp3',
+  music: '/sounds/music.mp3'
 }
 
 export const soundLabels: Record<Exclude<SoundType, null>, { en: string; ro: string }> = {
