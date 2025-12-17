@@ -27,10 +27,11 @@ const phaseInstructions: Record<Phase, string> = {
 }
 
 export function BoxBreathing({ onComplete, onCancel, pace = 'medium', cycles = 4 }: BoxBreathingProps) {
+  const [hasStarted, setHasStarted] = useState(false)
   const [phase, setPhase] = useState<Phase>('inhale')
   const [timeLeft, setTimeLeft] = useState(paceSettings[pace].inhale)
   const [currentCycle, setCurrentCycle] = useState(1)
-  const [isRunning, setIsRunning] = useState(true)
+  const [isRunning, setIsRunning] = useState(false)
   const [showEncouragement, setShowEncouragement] = useState(false)
   const addToolUsed = useAppStore(state => state.addToolUsed)
   const haptic = useHaptic()
@@ -102,6 +103,56 @@ export function BoxBreathing({ onComplete, onCancel, pace = 'medium', cycles = 4
     setTimeLeft(settings.inhale)
     setCurrentCycle(1)
     setIsRunning(true)
+  }
+
+  const handleStart = () => {
+    setHasStarted(true)
+    setIsRunning(true)
+  }
+
+  // Start screen
+  if (!hasStarted) {
+    return (
+      <div className="fixed inset-0 bg-warm-50 flex flex-col items-center justify-center px-6 z-40">
+        <button
+          onClick={onCancel}
+          className="absolute top-4 left-4 p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
+        >
+          <X className="w-6 h-6" />
+        </button>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center"
+        >
+          {/* Breathing visualization preview */}
+          <div className="relative w-48 h-48 mx-auto mb-8 flex items-center justify-center">
+            <div className="absolute inset-0 rounded-full border-2 border-warm-200" />
+            <motion.div
+              className="w-32 h-32 rounded-full bg-gradient-to-br from-warm-500 via-warm-400 to-warm-300 opacity-60"
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </div>
+
+          <h2 className="text-2xl font-semibold text-warm-900 mb-3">Box Breathing</h2>
+          <p className="text-warm-900/60 max-w-xs mx-auto mb-2">
+            Breathe in a square pattern: inhale, hold, exhale, hold.
+          </p>
+          <p className="text-warm-900/40 text-sm mb-8">
+            {cycles} cycles • {settings.inhale}s each phase
+          </p>
+
+          <button
+            onClick={handleStart}
+            className="px-12 py-4 rounded-full btn-panic text-xl font-semibold"
+          >
+            Start
+          </button>
+        </motion.div>
+      </div>
+    )
   }
 
   return (

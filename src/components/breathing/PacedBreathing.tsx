@@ -21,10 +21,11 @@ export function PacedBreathing({
   exhaleTime = 6,
   cycles = 6
 }: PacedBreathingProps) {
+  const [hasStarted, setHasStarted] = useState(false)
   const [phase, setPhase] = useState<Phase>('inhale')
   const [timeLeft, setTimeLeft] = useState(inhaleTime)
   const [currentCycle, setCurrentCycle] = useState(1)
-  const [isRunning, setIsRunning] = useState(true)
+  const [isRunning, setIsRunning] = useState(false)
   const [showEncouragement, setShowEncouragement] = useState(false)
   const addToolUsed = useAppStore(state => state.addToolUsed)
   const haptic = useHaptic()
@@ -72,6 +73,55 @@ export function PacedBreathing({
     setTimeLeft(inhaleTime)
     setCurrentCycle(1)
     setIsRunning(true)
+  }
+
+  const handleStart = () => {
+    setHasStarted(true)
+    setIsRunning(true)
+  }
+
+  // Start screen
+  if (!hasStarted) {
+    return (
+      <div className="fixed inset-0 bg-warm-50 flex flex-col items-center justify-center px-6 z-40">
+        <button
+          onClick={onCancel}
+          className="absolute top-4 left-4 p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
+        >
+          <X className="w-6 h-6" />
+        </button>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center"
+        >
+          {/* Wave visualization preview */}
+          <div className="relative w-64 h-32 mx-auto mb-8 overflow-hidden rounded-2xl">
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-t from-warm-500/30 to-transparent"
+              animate={{ y: ['-30%', '0%', '-30%'] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </div>
+
+          <h2 className="text-2xl font-semibold text-warm-900 mb-3">Paced Breathing</h2>
+          <p className="text-warm-900/60 max-w-xs mx-auto mb-2">
+            Longer exhales activate your relaxation response.
+          </p>
+          <p className="text-warm-900/40 text-sm mb-8">
+            {cycles} breaths • {inhaleTime}s in, {exhaleTime}s out
+          </p>
+
+          <button
+            onClick={handleStart}
+            className="px-12 py-4 rounded-full btn-panic text-xl font-semibold"
+          >
+            Start
+          </button>
+        </motion.div>
+      </div>
+    )
   }
 
   return (

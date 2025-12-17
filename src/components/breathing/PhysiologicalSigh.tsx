@@ -19,10 +19,11 @@ const phaseConfig = {
 }
 
 export function PhysiologicalSigh({ onComplete, onCancel, cycles = 3 }: PhysiologicalSighProps) {
+  const [hasStarted, setHasStarted] = useState(false)
   const [phase, setPhase] = useState<Phase>('inhale1')
   const [timeLeft, setTimeLeft] = useState(phaseConfig.inhale1.duration)
   const [currentCycle, setCurrentCycle] = useState(1)
-  const [isRunning, setIsRunning] = useState(true)
+  const [isRunning, setIsRunning] = useState(false)
   const [showEncouragement, setShowEncouragement] = useState(false)
   const addToolUsed = useAppStore(state => state.addToolUsed)
   const haptic = useHaptic()
@@ -75,7 +76,56 @@ export function PhysiologicalSigh({ onComplete, onCancel, cycles = 3 }: Physiolo
     setIsRunning(true)
   }
 
+  const handleStart = () => {
+    setHasStarted(true)
+    setIsRunning(true)
+  }
+
   const currentConfig = phaseConfig[phase]
+
+  // Start screen
+  if (!hasStarted) {
+    return (
+      <div className="fixed inset-0 bg-warm-50 flex flex-col items-center justify-center px-6 z-40">
+        <button
+          onClick={onCancel}
+          className="absolute top-4 left-4 p-2 rounded-full bg-warm-100 text-warm-900/60 hover:text-warm-900 transition-colors"
+        >
+          <X className="w-6 h-6" />
+        </button>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center"
+        >
+          {/* Lung visualization preview */}
+          <div className="relative w-48 h-56 mx-auto mb-8 flex items-center justify-center">
+            <motion.div
+              className="w-36 h-44 rounded-[40%] bg-gradient-to-b from-warm-400/40 via-warm-500/40 to-warm-600/40"
+              animate={{ scale: [1, 1.15, 1] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </div>
+
+          <h2 className="text-2xl font-semibold text-warm-900 mb-3">Physiological Sigh</h2>
+          <p className="text-warm-900/60 max-w-xs mx-auto mb-2">
+            The fastest way to calm down. Two inhales, then a long exhale.
+          </p>
+          <p className="text-warm-900/40 text-sm mb-8">
+            {cycles} cycles • ~9s each
+          </p>
+
+          <button
+            onClick={handleStart}
+            className="px-12 py-4 rounded-full btn-panic text-xl font-semibold"
+          >
+            Start
+          </button>
+        </motion.div>
+      </div>
+    )
+  }
 
   return (
     <div className="fixed inset-0 bg-warm-50 flex flex-col items-center justify-center px-6 z-40">
